@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { projects } from '../../data/projects';
+
+const currentSlug = 'vitality-alternate';
+const otherProjects = projects.filter((p) => p.slug !== currentSlug);
+const currentIndex = projects.findIndex((p) => p.slug === currentSlug);
+const prevProject = projects[(currentIndex - 1 + projects.length) % projects.length];
+const nextProject = projects[(currentIndex + 1) % projects.length];
+
+const credits = [
+	{ label: 'Client', value: 'Team Vitality' },
+	{ label: 'Role', value: 'Animation' },
+	{ label: 'Year', value: '2021' },
+	{ label: 'Agency', value: 'Direct Client' },
+	{ label: 'Released on', value: 'Social Networks' },
+].filter((c) => c.value && c.value.trim() !== '' && c.value !== 'Direct Client');
+---
+
+<BaseLayout title="Team Vitality – Alternate — Nicolas Rakotoary" hidePortrait3D>
+	<section class="project-hero">
+		<div class="wrap project-wrap">
+			<h1 class="reveal">
+				<span class="title-a">Team Vitality</span><br />
+				<span class="title-b">Alternate</span>
+			</h1>
+			<div class="project-hero-nav reveal">
+				<div class="swipe-btn-wrap">
+					<span class="swipe-btn-tooltip">{prevProject.title}</span>
+					<a href={`/work/${prevProject.slug}`} class="swipe-btn">
+						<span class="swipe-btn-fill"></span>
+						<span class="swipe-btn-text">← Previous project</span>
+					</a>
+				</div>
+				<div class="swipe-btn-wrap">
+					<span class="swipe-btn-tooltip swipe-btn-tooltip--right">{nextProject.title}</span>
+					<a href={`/work/${nextProject.slug}`} class="swipe-btn">
+						<span class="swipe-btn-fill"></span>
+						<span class="swipe-btn-text">Next project →</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap project-wrap">
+		<div class="project-cover reveal">
+			<div style="position: relative; padding-bottom: 44.44%; height: 0; overflow: hidden;">
+				<iframe
+					src="https://framerate.tv/embed/e137d210-faa5-4945-a10e-833b6e06be09?autoplay=1&muted=1&loop=1&airplay_btn=0&pip_btn=0&primary_color=%2523ffffff&track_color=d4f857&theme=minimal"
+					width="1920"
+					height="853"
+					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; aspect-ratio: 9 / 4; border: none;"
+					title="Team Vitality – Alternate video"
+					allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+				></iframe>
+			</div>
+		</div>
+
+		<div class="project-content">
+			<div class="project-description reveal">
+				<p>
+					Esports club Team Vitality collaborated with Adidas in launching a new clothing line,
+					bringing fresh and stylish designs for fans and esports enthusiasts alike.
+				</p>
+				<p>
+					For this exciting release, I animated a social ad highlighting the new collection with{' '}
+					<span class="text-highlight">a simple yet impactful design that pulses in sync with the audio beat, effectively capturing the essence of the bold new clothing identity.</span>
+				</p>
+			</div>
+			<div class="project-credits reveal">
+				<dl>
+					{
+						credits.map((c) => (
+							<div class="credit-row">
+								<dt>{c.label}</dt>
+								<dd>{c.value}</dd>
+							</div>
+						))
+					}
+				</dl>
+			</div>
+		</div>
+	</div>
+
+	<section class="project-list">
+		<div class="project-list-nav-bar">
+			<div class="wrap project-wrap">
+				<div class="project-list-nav reveal">
+					<div class="swipe-btn-wrap">
+						<span class="swipe-btn-tooltip">{prevProject.title}</span>
+						<a href={`/work/${prevProject.slug}`} class="swipe-btn">
+							<span class="swipe-btn-fill"></span>
+							<span class="swipe-btn-text">← Previous project</span>
+						</a>
+					</div>
+					<div class="swipe-btn-wrap">
+						<span class="swipe-btn-tooltip swipe-btn-tooltip--right">{nextProject.title}</span>
+						<a href={`/work/${nextProject.slug}`} class="swipe-btn">
+							<span class="swipe-btn-fill"></span>
+							<span class="swipe-btn-text">Next project →</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wrap project-wrap">
+			<span class="eyebrow">More projects</span>
+			<div class="project-list-rows reveal">
+				{
+					otherProjects.map((p) => (
+						<a href={`/work/${p.slug}`} class="project-list-row">
+							<span class="plr-client">{p.client}</span>
+							<span class="plr-title">{p.title}</span>
+							<span class="plr-year">{p.year}</span>
+							<span class="plr-thumb">
+								<img src={`/images/projects/${p.slug}/${p.cover}`} alt="" loading="lazy" />
+							</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.project-hero {
+		padding: 60px 0 0;
+		border-bottom: 1px solid var(--line);
+	}
+	/* Widened to align its left edge with "Nicolas" in the header. */
+	.project-wrap {
+		padding-left: max(0px, calc(35px - max(0px, calc((100vw - 1180px) / 2))));
+	}
+	.project-hero-nav {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		margin-top: 36px;
+		transform: translateY(1px);
+	}
+	.swipe-btn {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 39px;
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 600;
+		padding: 0 18px;
+		box-shadow: inset 0 0 0 1px var(--line);
+		overflow: hidden;
+	}
+	.swipe-btn-fill {
+		position: absolute;
+		inset: -2px;
+		background: var(--accent);
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 0.22s ease-out;
+	}
+	.swipe-btn:hover .swipe-btn-fill {
+		transform: scaleX(1);
+	}
+	.swipe-btn:hover .swipe-btn-text {
+		color: var(--ink-on-accent);
+	}
+	.swipe-btn-text {
+		position: relative;
+		z-index: 1;
+	}
+	.swipe-btn-wrap {
+		position: relative;
+	}
+	.swipe-btn-tooltip {
+		position: absolute;
+		bottom: 10px;
+		left: 100%;
+		margin-left: 10px;
+		width: max-content;
+		max-width: 220px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: 14px;
+		line-height: 1.4;
+		color: var(--ink-soft);
+		opacity: 0;
+		transform: translateX(-4px);
+		transition: opacity 0.2s ease, transform 0.2s ease;
+		pointer-events: none;
+	}
+	.swipe-btn-tooltip--right {
+		left: auto;
+		right: 100%;
+		margin-left: 0;
+		margin-right: 10px;
+		transform: translateX(4px);
+	}
+	.swipe-btn-wrap:hover .swipe-btn-tooltip {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	.project-hero h1 {
+		font-family: var(--font-heading);
+		font-size: clamp(32px, 4.6vw, 60px);
+		line-height: 1.15;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		margin-bottom: 24px;
+	}
+	.project-hero h1 .serif {
+		font-family: 'Playfair Display', serif;
+		font-style: italic;
+	}
+	.project-hero h1 .title-a {
+		color: var(--ink);
+	}
+	.project-hero h1 .title-b {
+		color: var(--ink-soft);
+	}
+	.project-cover {
+		position: relative;
+		margin: 50px 0;
+		aspect-ratio: 9/4;
+		overflow: hidden;
+		background: var(--card-bg);
+	}
+	.project-cover iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+	.project-cover img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.project-content {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 60px;
+	}
+	.project-description p {
+		font-size: 18px;
+		font-family: var(--font-body);
+		color: var(--ink-soft);
+		line-height: 1.6;
+		max-width: 60ch;
+	}
+	.project-description p + p {
+		margin-top: 16px;
+	}
+	.project-credits dl {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+	.credit-row {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid var(--line);
+	}
+	.credit-row dt {
+		font-size: 12px;
+		color: var(--ink-soft);
+	}
+	.credit-row dd {
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 600;
+	}
+
+	.eyebrow {
+		display: inline-block;
+		font-size: 13px;
+		color: var(--ink-soft);
+		letter-spacing: 0.02em;
+		margin-bottom: 18px;
+	}
+
+	.project-list {
+		padding: 0 0 80px;
+	}
+	.project-list-nav-bar {
+		border-top: 1px solid var(--line);
+		margin-bottom: 16px;
+	}
+	.project-list-nav {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 0 0 24px;
+		transform: translateY(-1px);
+	}
+	.project-list-rows {
+		display: flex;
+		flex-direction: column;
+	}
+	.project-list-row {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 2fr 90px;
+		gap: 24px;
+		align-items: center;
+		padding: 3px 0;
+		border-bottom: 1px solid var(--line);
+		font-family: var(--font-heading);
+		font-size: 15px;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		transition: background-color 0.2s ease, color 0.2s ease;
+	}
+	.project-list-row:hover {
+		background: var(--accent);
+	}
+	.plr-thumb {
+		position: absolute;
+		top: 50%;
+		right: 110px;
+		width: 213px;
+		height: 120px;
+		transform: translateY(-50%) scale(0.96);
+		opacity: 0;
+		overflow: hidden;
+		background: var(--card-bg);
+		pointer-events: none;
+		transition: opacity 0.2s ease, transform 0.2s ease;
+		z-index: 2;
+	}
+	.plr-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.project-list-row:hover .plr-thumb {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+	.plr-client {
+		color: var(--ink-soft);
+		transition: color 0.2s ease;
+	}
+	.plr-title {
+		color: var(--ink);
+		font-weight: 600;
+	}
+	.plr-year {
+		color: var(--ink-soft);
+		text-align: right;
+		transition: color 0.2s ease;
+	}
+	.project-list-row:hover .plr-client,
+	.project-list-row:hover .plr-year {
+		color: var(--ink);
+	}
+
+	@media (max-width: 760px) {
+		.project-content {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+		.project-list-row {
+			grid-template-columns: 1fr;
+			gap: 4px;
+			padding: 14px 0;
+		}
+		.plr-year {
+			text-align: left;
+		}
+		.plr-thumb {
+			display: none;
+		}
+	}
+</style>

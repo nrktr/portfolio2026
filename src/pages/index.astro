@@ -1,17 +1,977 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+const projects = [
+	{
+		cat: 'motion art-direction',
+		gradient: 'linear-gradient(120deg, #1A1D22, #D4F857, #1A1D22)',
+		title: 'Team Vitality — V.Hive 2.0',
+		label: 'App launch video ad',
+		image: '/images/projects/vitality-vhive2-0/carousel/v.hive - static announcement - 1920x1080-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #0D0D0D, #3A3A3A, #0D0D0D)',
+		title: 'G2 Esports — Mastercard Gamer Academy',
+		label: 'Title cards and lower-thirds',
+		image: '/images/projects/g2-esports-mastercard-gamer-academy/cover-optimized.webp',
+		hoverImage: '/images/projects/g2-esports-mastercard-gamer-academy/gifs/MCGA25 - LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d motion art-direction',
+		gradient: 'linear-gradient(120deg, #1B1D22, #3A3D45, #1B1D22)',
+		title: 'Vitality × ASUS RoG × BLAST.tv',
+		label: '40 seconds ad',
+		image: '/images/projects/vitality-x-asus-rog-x-blast-tv/cover-optimized.webp',
+		hoverImage: '/images/projects/vitality-x-asus-rog-x-blast-tv/gifs/TVxASUSROGxBLAST - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #D8D6CE, #EDEBE3, #D8D6CE)',
+		title: 'Baccarat — Résonance',
+		label: 'Title cards',
+		image: '/images/projects/baccarat-resonance/cover-optimized.webp',
+		hoverImage: '/images/projects/baccarat-resonance/gifs/BACCARAT - RESONANCE - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion 3d',
+		gradient: 'linear-gradient(120deg, #6B4A3A, #A97E64, #6B4A3A)',
+		title: 'Laurent-Perrier — Best wishes',
+		label: 'Animated greetings card',
+		image: '/images/projects/laurent-perrier-voeux/cover-optimized.webp',
+		hoverImage: '/images/projects/laurent-perrier-voeux/gifs/LP-VOEUX2026 - LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d motion',
+		gradient: 'linear-gradient(120deg, #CBB68A, #E8DCC0, #CBB68A)',
+		title: 'Christofle — Malmaison',
+		label: 'Product line ad',
+		image: '/images/projects/christofle-malmaison/cover-optimized.webp',
+		hoverImage: '/images/projects/christofle-malmaison/gifs/CHRISTOFLE - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #1A0A0A, #4A1515, #1A0A0A)',
+		title: 'Riot Games LEC — Give Me Chaos!',
+		label: 'Animated glitch assets',
+		image: '/images/projects/riot-games-lec-give-me-chaos/cover-optimized.webp',
+		hoverImage: '/images/projects/riot-games-lec-give-me-chaos/gifs/RG-CHAOS - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'art-direction motion',
+		gradient: 'linear-gradient(120deg, #15171C, #3A3D45, #15171C)',
+		title: 'Team Vitality — 1v1',
+		label: 'Title cards and logo design',
+		image: '/images/projects/team-vitality-x-evnia-monitor-madness/cover-optimized.webp',
+		hoverImage: '/images/projects/team-vitality-x-evnia-monitor-madness/gifs/TV-EVNIA - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion art-direction',
+		gradient: 'linear-gradient(120deg, #0A1A2E, #1E3A5F, #0A1A2E)',
+		title: 'ICC — Motion Identity',
+		label: 'Motion branding and motion films',
+		image: '/images/projects/icc-motion-identity/cover.webp',
+		hoverImage: '/images/projects/icc-motion-identity/gifs/ICC-WCF-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #0A1428, #1E3A5F, #0A1428)',
+		title: 'League of Legends — Formats & Ecosystem',
+		label: 'Esports competition explainer',
+		image: '/images/projects/league-of-legends-2023-formats-ecosystem/cover.webp',
+		hoverImage: '/images/projects/league-of-legends-2023-formats-ecosystem/gifs/LEC-FORMAT-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #FF5A3C, #FF8F6B, #FF5A3C)',
+		title: 'Esports World Cup — Explainer',
+		label: 'Esports competition explainer',
+		image: '/images/projects/esports-world-cup-explainer/cover-optimized.webp',
+		hoverImage: '/images/projects/esports-world-cup-explainer/gifs/EWC2026 - LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d motion art-direction',
+		gradient: 'linear-gradient(120deg, #1A1D3D, #35398A, #1A1D3D)',
+		title: 'The Whispering Eclipse',
+		label: 'Title cards',
+		image: '/images/projects/the-whispering-eclipse/cover-optimized.webp',
+		hoverImage: '/images/projects/the-whispering-eclipse/gifs/WHISPERINGECLIPSE - LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d illustration motion',
+		gradient: 'linear-gradient(120deg, #E3574B, #F2A08C, #E3574B)',
+		title: 'Character animation reel',
+		label: '2D and 3D cuties',
+		image: '/images/projects/character-animation-reel/cover.webp',
+		hoverImage: '/images/projects/character-animation-reel/gifs/KID GIRL - 600PXHEIGHT - LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d art-direction',
+		gradient: 'linear-gradient(120deg, #2A1A3D, #5B3A8A, #2A1A3D)',
+		title: 'Kirosen — Covers',
+		label: 'Abstract visuals',
+		image: '/images/projects/kirosen-covers/cover-optimized.webp',
+		hoverImage: '/images/projects/kirosen-covers/gifs/Kirosen - Patterns - LOOP01.gif',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #2A0A14, #5B1530, #2A0A14)',
+		title: 'LEC — Dance With Me',
+		label: 'Animated assets for a music video',
+		image: '/images/projects/lec-dance-with-me/cover-optimized.webp',
+		hoverImage: '/images/projects/lec-dance-with-me/gifs/LEC-DANCEWITHME - LOOP01-optimized.webp',
+	},
+	{
+		cat: 'illustration',
+		gradient: 'linear-gradient(120deg, #6B4A3A, #A97E64, #6B4A3A)',
+		title: 'Fans — Storyboard',
+		label: 'Illustrations',
+		image: '/images/projects/fans-storyboard/cover-optimized.webp',
+		hoverImage: '/images/projects/fans-storyboard/gifs/FANS-PORTFOLIO-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion art-direction',
+		gradient: 'linear-gradient(120deg, #3D1A3D, #8A3A8A, #3D1A3D)',
+		title: 'Just Dance 2022 — World Tour',
+		label: 'Teaser ad',
+		image: '/images/projects/just-dance-2022-world-tour/cover-optimized.webp',
+		hoverImage: '/images/projects/just-dance-2022-world-tour/gifs/JUSTDANCE2022-PORTFOLIO-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'art-direction motion',
+		gradient: 'linear-gradient(120deg, #0A2A2A, #1E5A5A, #0A2A2A)',
+		title: 'O+O — End Year Gala Logo',
+		label: 'Logo creation and animation',
+		image: '/images/projects/oo-end-year-gala-logo/cover-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #1B1D22, #3A3D45, #1B1D22)',
+		title: 'Team Vitality — Alternate',
+		label: 'Clothing campaign social ads',
+		image: '/images/projects/vitality-alternate/cover-optimized.webp',
+		hoverImage: '/images/projects/vitality-alternate/gifs/VITALITY-ALTERNATE-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'illustration motion art-direction',
+		gradient: 'linear-gradient(120deg, #1A0505, #4A1515, #1A0505)',
+		title: "The API — Director's Cut",
+		label: 'Selected moments from a corporate explainer',
+		image: '/images/projects/the-api-directors-cut/cover.webp',
+		hoverImage: '/images/projects/the-api-directors-cut/gifs/PROTOTYPE-API-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'illustration motion art-direction',
+		gradient: 'linear-gradient(120deg, #041826, #0D3B54, #041826)',
+		title: 'CEA — Tsunami Alert',
+		label: 'Selected moments from a corporate explainer',
+		image: '/images/projects/tsunami-alert/cover.webp',
+		hoverImage: '/images/projects/tsunami-alert/gifs/TSUNAMI-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'illustration motion art-direction',
+		gradient: 'linear-gradient(120deg, #FF5A3C, #FF8F6B, #FF5A3C)',
+		title: 'Resilience',
+		label: 'Personal project',
+		image: '/images/projects/resilience/cover.webp',
+		hoverImage: '/images/projects/resilience/gifs/RESILIENCE-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion art-direction',
+		gradient: 'linear-gradient(120deg, #1A0A2E, #3A1A5E, #1A0A2E)',
+		title: 'Ghoster — Crame I',
+		label: 'AI music video',
+		image: '/images/projects/ghoster-crame/cover.webp',
+		hoverImage: '/images/projects/ghoster-crame/gifs/GHOSTER-LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d motion art-direction',
+		gradient: 'linear-gradient(120deg, #0A1E2E, #1E4A6E, #0A1E2E)',
+		title: 'Droïd Fantôm — Gelled Water',
+		label: '3D Music video',
+		image: '/images/projects/gelled-water-droid-fantom/cover.webp',
+		hoverImage: '/images/projects/gelled-water-droid-fantom/gifs/DROIDFANTOM-LOOP01-optimized.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #CBB68A, #E8DCC0, #CBB68A)',
+		title: 'Baccarat — Alchemy',
+		label: 'Immersive experience',
+		image: '/images/projects/baccarat-alchemy/cover.webp',
+	},
+	{
+		cat: 'motion',
+		gradient: 'linear-gradient(120deg, #3D1A2A, #8A3A5E, #3D1A2A)',
+		title: 'Roxy — Cute 2.0',
+		label: 'Social campaign',
+		image: '/images/projects/roxy-cute-2-0/cover.webp',
+		hoverImage: '/images/projects/roxy-cute-2-0/gifs/ROXY-CUTE-LOOP01-optimized.webp',
+	},
+	{
+		cat: '3d motion',
+		gradient: 'linear-gradient(120deg, #1A1A2E, #3A3A5E, #1A1A2E)',
+		title: 'KHF — DBTL',
+		label: '3D Music video',
+		image: '/images/projects/khf-music-video/cover.webp',
+		hoverImage: '/images/projects/khf-music-video/gifs/KHF-LOOP01-optimized.webp',
+	},
+];
+
+const clientRows = [
+	[
+		{ name: 'International Chamber of Commerce', cat: 'institutional' },
+		{ name: 'Team Vitality', cat: 'esports' },
+		{ name: 'Riot Games', cat: 'esports' },
+		{ name: 'G2 Esports', cat: 'esports' },
+		{ name: 'Baccarat', cat: 'luxury' },
+	],
+	[
+		{ name: 'Christofle', cat: 'luxury' },
+		{ name: 'Laurent-Perrier', cat: 'luxury' },
+		{ name: 'Clarins', cat: 'beauty' },
+		{ name: 'Pierre Fabre', cat: 'beauty' },
+		{ name: 'Esports World Cup', cat: 'esports' },
+	],
+];
+
+const clientFilters = [
+	{ label: 'Esports', value: 'esports' },
+	{ label: 'Luxury', value: 'luxury' },
+	{ label: 'Beauty', value: 'beauty' },
+	{ label: 'Institutional', value: 'institutional' },
+];
+
+const filters = [
+	{ label: 'All', value: 'all' },
+	{ label: 'Motion design', value: 'motion' },
+	{ label: 'Art direction', value: 'art-direction' },
+	{ label: '3D', value: '3d' },
+	{ label: 'Illustration', value: 'illustration' },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+	<section class="hero">
+		<div class="wrap">
+			<h1>
+				<span class="line1"><span>Your</span> <span>friendly</span></span><br />
+				<span class="line2"
+					><span style="animation-delay:0.2s"
+						><span class="highlight"><span class="serif">designer</span> &amp; <span class="serif">motion graphics</span> artist.</span></span
+					></span
+				>
+			</h1>
+			<div class="hero-side">
+				<p>
+					Based in France, available for new projects worldwide, since 2003. Let's get this job
+					done! <span class="dot"></span>
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="showreel" id="showreel">
+		<div class="showreel-media">
+			<iframe
+				class="showreel-iframe"
+				src="https://framerate.tv/embed/40a5e30a-4e43-4323-96ae-5ffaf38dcf49?autoplay=1&muted=1&loop=1&airplay_btn=0&pip_btn=0&primary_color=%2523ffffff&track_color=d4f857&theme=minimal"
+				title="Showreel video"
+				allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+				referrerpolicy="strict-origin-when-cross-origin"
+				allowfullscreen
+			></iframe>
+		</div>
+	</section>
+
+	<div class="clients" id="clients">
+		<div class="wrap clients-inner">
+			<div class="clients-label">Recent clients</div>
+			<div class="client-filters">
+				{
+					clientFilters.map((filter) => (
+						<button class="client-filter-btn" data-cat={filter.value}>
+							{filter.label}
+						</button>
+					))
+				}
+			</div>
+			<div class="clients-rows">
+				{
+					clientRows.map((row) => (
+						<div class="clients-row">
+							{row.map((client, i) => (
+								<>
+									<span class="client-logo" data-cat={client.cat}>
+										{client.name}
+									</span>
+									{i < row.length - 1 && <span class="client-slash">/</span>}
+								</>
+							))}
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+
+	<div class="projects" id="work">
+		<div class="filters" id="filters">
+			<div class="filter-indicator" id="filter-indicator"></div>
+			{
+				filters.map((filter, i) => (
+					<button class="filter-btn" class:list={[{ active: i === 0 }]} data-filter={filter.value}>
+						{filter.label}
+					</button>
+				))
+			}
+		</div>
+
+		<div class="grid" id="grid">
+			{
+				projects.map((project) => {
+					const slug = project.image?.match(/\/projects\/([^/]+)\//)?.[1];
+					const href = slug ? `/work/${slug}` : undefined;
+					const Tag = href ? 'a' : 'div';
+					return (
+						<Tag class="card" data-cat={project.cat} href={href}>
+							<div class="card-media">
+								<div class="fill" style={{ backgroundImage: project.gradient }}>
+									{project.image && <img src={project.image} alt={project.title} loading="lazy" />}
+									{project.hoverImage && (
+										<img class="card-hover-img" data-hover-src={project.hoverImage} alt="" />
+									)}
+								</div>
+								<div class="card-info">
+									<span class="card-title">{project.title}</span>
+									<span class="card-cat">{project.label}</span>
+								</div>
+							</div>
+						</Tag>
+					);
+				})
+			}
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	/* ---------- HERO ---------- */
+	.hero .wrap {
+		width: 100%;
+		padding-left: max(0px, calc(35px - max(0px, calc((100vw - 1180px) / 2))));
+	}
+	.hero {
+		padding: 100px 0 80px;
+		display: flex;
+		flex-direction: column;
+		gap: 28px;
+		border-bottom: 1px solid var(--line);
+	}
+	.hero h1 {
+		font-family: var(--font-heading);
+		font-size: clamp(40px, 5.2vw, 72px);
+		line-height: 1.25;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+	.hero h1 span {
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(16px);
+		animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+	.hero h1 .highlight {
+		display: inline;
+		color: var(--ink);
+	}
+	.hero h1 .serif {
+		position: relative;
+		display: inline-block;
+		font-family: 'Playfair Display', serif;
+		font-style: italic;
+		padding: 0.02em 0.18em;
+	}
+	.hero h1 .serif::before {
+		content: '';
+		position: absolute;
+		top: 16px;
+		left: -1.5px;
+		right: -1.5px;
+		bottom: -1.5px;
+		border: 1.5px solid var(--ink);
+	}
+	.hero h1 span:nth-child(1) {
+		animation-delay: 0.05s;
+	}
+	@keyframes rise {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	.hero-side {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		margin-left: -29px;
+	}
+	.hero-side p {
+		font-size: 20px;
+		font-family: var(--font-body);
+		color: var(--ink-soft);
+		line-height: 1.35;
+		max-width: 42ch;
+		margin-top: 16px;
+		margin-left: 10px;
+	}
+	.dot {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		margin-left: 4px;
+		border-radius: 50%;
+		background: var(--accent);
+		animation: pulse 0.8s ease-in-out infinite;
+	}
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.35;
+		}
+	}
+
+	/* ---------- SHOWREEL ---------- */
+	.showreel {
+		padding: 0 0 60px;
+	}
+	.showreel-media {
+		aspect-ratio: 16/9;
+		background: linear-gradient(120deg, #1b1d22, #3a3d45, #1b1d22);
+		background-size: 200% 200%;
+		animation: shift 8s ease infinite;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	@keyframes shift {
+		0%,
+		100% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+	}
+	.showreel-iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+
+	/* ---------- CLIENTS ---------- */
+	.clients {
+		padding: 50px 0;
+		border-top: 1px solid var(--line);
+		border-bottom: 1px solid var(--line);
+	}
+	.clients-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+	.clients-label {
+		font-size: 13px;
+		color: var(--ink-soft);
+		margin-bottom: 24px;
+	}
+	.clients-rows {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+	.clients-row {
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: baseline;
+		line-height: 18px;
+		max-width: 100%;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+	.clients-row::-webkit-scrollbar {
+		display: none;
+	}
+	.client-logo {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 18px;
+		color: var(--client-dim);
+		letter-spacing: -0.01em;
+		transition: color 0.2s ease;
+		white-space: nowrap;
+	}
+	.clients.filtering .client-logo {
+		color: var(--client-dim-filtering);
+	}
+	.client-logo.highlighted {
+		color: var(--ink) !important;
+	}
+	.client-slash {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 18px;
+		color: var(--accent);
+		margin: 0 14px;
+	}
+
+	.client-filters {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+		margin-bottom: 28px;
+	}
+	.client-filter-btn {
+		font-family: var(--font-body);
+		font-size: 14px;
+		color: var(--ink);
+		background: var(--card-bg);
+		border: none;
+		cursor: pointer;
+		padding: 6px 14px;
+		transition: background 0.2s ease, color 0.2s ease;
+	}
+	.client-filter-btn:hover {
+		background: var(--accent);
+		color: var(--ink-on-accent);
+	}
+
+	/* ---------- FILTERS ---------- */
+	.filters {
+		position: sticky;
+		top: var(--header-h, 89px);
+		z-index: 5;
+		background: var(--overlay-bg);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		transition: background-color 0.3s ease;
+		max-width: 1180px;
+		margin: 20px auto 0;
+		padding: 32px;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	.filter-indicator {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: var(--accent);
+		z-index: 0;
+		transition: left 0.45s cubic-bezier(0.22, 1, 0.36, 1), width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+			top 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	.filter-btn {
+		position: relative;
+		z-index: 1;
+		font-family: var(--font-body);
+		font-size: 22px;
+		color: var(--ink);
+		background: var(--card-bg);
+		border: none;
+		cursor: pointer;
+		padding: 6px 14px;
+		transition: background 0.2s ease;
+	}
+	.filter-btn:hover {
+		background: var(--hover-bg);
+	}
+	.filter-btn.active {
+		background: transparent;
+		color: var(--ink-on-accent);
+	}
+
+	/* ---------- GRID ---------- */
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0;
+		width: 100%;
+		margin-bottom: 60px;
+		position: relative;
+	}
+	.card {
+		cursor: pointer;
+	}
+	.card.leaving {
+		transition: transform 0.22s cubic-bezier(0.4, 0, 1, 1), opacity 0.22s cubic-bezier(0.4, 0, 1, 1);
+		transform: scale(0.8);
+		opacity: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+	.card.flip-move {
+		transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+		z-index: 2;
+	}
+	.card.entering-start {
+		opacity: 0;
+		transform: scale(0.85);
+	}
+	.card.entering-end {
+		transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+		opacity: 1;
+		transform: scale(1);
+		z-index: 2;
+	}
+	.card-media {
+		aspect-ratio: 16/9;
+		border-radius: 0;
+		overflow: hidden;
+		position: relative;
+		background: var(--card-bg);
+	}
+	.card-media .fill {
+		position: absolute;
+		inset: 0;
+		background-size: 200% 200%;
+		background-position: 0% 50%;
+		transition: background-position 1.4s ease, transform 0.5s ease;
+	}
+	.card-media .fill img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.card:hover .card-media .fill {
+		background-position: 100% 50%;
+		transform: scale(1.04);
+	}
+	.card-hover-img {
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+	.card:hover .card-hover-img {
+		opacity: 1;
+	}
+	.card-media::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.85);
+		opacity: 0;
+		transition: opacity 0.25s ease;
+		z-index: 1;
+	}
+	.card:hover .card-media::after {
+		opacity: 1;
+	}
+	.card-info {
+		position: absolute;
+		inset: 0;
+		padding: 16px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		gap: 6px;
+		opacity: 0;
+		transform: translateY(10px);
+		transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+		z-index: 2;
+	}
+	.card:hover .card-info {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	.card-title {
+		font-family: var(--font-heading);
+		font-size: 40px;
+		font-weight: 600;
+		color: #fff;
+		transform: translateY(5px);
+		transition: transform 0.35s ease-out;
+	}
+	.card:hover .card-title {
+		transform: translateY(0);
+	}
+	.card-cat {
+		display: inline-block;
+		background: var(--accent);
+		color: #000;
+		font-size: 13px;
+		letter-spacing: 0.02em;
+		padding: 4px 10px;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	@media (max-width: 760px) {
+		.hero {
+			gap: 24px;
+			padding-top: 60px;
+		}
+	}
+	@media (max-width: 600px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+	}
+	@media (min-width: 1400px) {
+		.grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>
+
+<script>
+	function easeOutCubic(t: number) {
+		return 1 - Math.pow(1 - t, 3);
+	}
+
+	function smoothScrollTo(targetY: number, duration = 700) {
+		const startY = window.scrollY;
+		const diff = targetY - startY;
+		const startTime = performance.now();
+
+		function step(now: number) {
+			const elapsed = now - startTime;
+			const progress = Math.min(elapsed / duration, 1);
+			window.scrollTo(0, startY + diff * easeOutCubic(progress));
+			if (progress < 1) requestAnimationFrame(step);
+		}
+		requestAnimationFrame(step);
+	}
+
+	const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+	const cards = document.querySelectorAll<HTMLElement>('.card');
+	const grid = document.getElementById('grid');
+
+	// Hover-preview images (gifs, alternate visuals) load only on first real
+	// hover, not via scroll-proximity lazy loading — keeps the homepage's
+	// initial/scroll payload light even as more cards get one.
+	cards.forEach((card) => {
+		const hoverImg = card.querySelector<HTMLImageElement>('.card-hover-img[data-hover-src]');
+		if (!hoverImg) return;
+		card.addEventListener(
+			'mouseenter',
+			() => {
+				const src = hoverImg.dataset.hoverSrc;
+				if (src) hoverImg.src = src;
+			},
+			{ once: true }
+		);
+	});
+
+
+	const filtersBar = document.getElementById('filters');
+	const indicator = document.getElementById('filter-indicator');
+
+	function moveIndicatorTo(btn: HTMLElement, animate: boolean) {
+		if (!filtersBar || !indicator) return;
+		const barRect = filtersBar.getBoundingClientRect();
+		const btnRect = btn.getBoundingClientRect();
+		if (!animate) indicator.style.transition = 'none';
+		indicator.style.left = `${btnRect.left - barRect.left}px`;
+		indicator.style.top = `${btnRect.top - barRect.top}px`;
+		indicator.style.width = `${btnRect.width}px`;
+		indicator.style.height = `${btnRect.height}px`;
+		if (!animate) {
+			indicator.offsetHeight;
+			indicator.style.transition = '';
+		}
+	}
+
+	const initialActive = document.querySelector<HTMLElement>('.filter-btn.active');
+	if (initialActive) moveIndicatorTo(initialActive, false);
+
+	const workSection = document.getElementById('work');
+
+	type Rect = { left: number; top: number; width: number; height: number };
+
+	function resetCard(card: HTMLElement) {
+		card.classList.remove('leaving', 'flip-move', 'entering-start', 'entering-end');
+		card.style.position = '';
+		card.style.left = '';
+		card.style.top = '';
+		card.style.width = '';
+		card.style.height = '';
+		card.style.margin = '';
+		card.style.transform = '';
+		card.style.zIndex = '';
+		card.style.transition = '';
+	}
+
+	function applyFilter(filter: string) {
+		if (!grid) return;
+		const gridRect = grid.getBoundingClientRect();
+
+		// Settle any card still mid-animation from a filter change that was interrupted.
+		cards.forEach((card) => {
+			if (card.classList.contains('leaving')) card.classList.add('hidden');
+			resetCard(card);
+		});
+
+		// First: capture where every currently visible card sits.
+		const firstRects = new Map<HTMLElement, Rect>();
+		cards.forEach((card) => {
+			if (!card.classList.contains('hidden')) {
+				const r = card.getBoundingClientRect();
+				firstRects.set(card, {
+					left: r.left - gridRect.left,
+					top: r.top - gridRect.top,
+					width: r.width,
+					height: r.height,
+				});
+			}
+		});
+
+		const leaving: HTMLElement[] = [];
+		const staying: HTMLElement[] = [];
+		const entering: HTMLElement[] = [];
+		cards.forEach((card) => {
+			const cats = card.dataset.cat?.split(' ') ?? [];
+			const willShow = filter === 'all' || cats.includes(filter);
+			const wasVisible = firstRects.has(card);
+			if (wasVisible && !willShow) leaving.push(card);
+			else if (wasVisible && willShow) staying.push(card);
+			else if (!wasVisible && willShow) entering.push(card);
+		});
+
+		// Freeze outgoing cards at their old spot, out of grid flow, so everything
+		// else can reflow into its final layout immediately.
+		leaving.forEach((card) => {
+			const r = firstRects.get(card)!;
+			card.style.position = 'absolute';
+			card.style.left = `${r.left}px`;
+			card.style.top = `${r.top}px`;
+			card.style.width = `${r.width}px`;
+			card.style.height = `${r.height}px`;
+			card.style.margin = '0';
+			card.classList.add('leaving');
+		});
+
+		entering.forEach((card) => {
+			card.classList.remove('hidden');
+			card.classList.add('entering-start');
+		});
+
+		// Last: the grid has now reflowed into its final shape — invert stayers
+		// back to their old spot so we can play the move from there.
+		const movers: HTMLElement[] = [];
+		staying.forEach((card) => {
+			const r = card.getBoundingClientRect();
+			const first = firstRects.get(card)!;
+			const dx = first.left - (r.left - gridRect.left);
+			const dy = first.top - (r.top - gridRect.top);
+			if (dx || dy) {
+				card.style.transition = 'none';
+				card.style.transform = `translate(${dx}px, ${dy}px)`;
+				card.style.zIndex = '2';
+				movers.push(card);
+			}
+		});
+
+		// Force the browser to register the inverted position before playing it back.
+		void grid.offsetHeight;
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				movers.forEach((card) => {
+					card.style.transition = '';
+					card.classList.add('flip-move');
+					card.style.transform = '';
+					card.addEventListener(
+						'transitionend',
+						(e) => {
+							if (e.propertyName === 'transform') resetCard(card);
+						},
+						{ once: true }
+					);
+				});
+				entering.forEach((card) => {
+					card.classList.remove('entering-start');
+					card.classList.add('entering-end');
+					card.addEventListener('transitionend', () => resetCard(card), { once: true });
+				});
+			});
+		});
+
+		leaving.forEach((card) => {
+			card.addEventListener(
+				'transitionend',
+				() => {
+					card.classList.add('hidden');
+					resetCard(card);
+				},
+				{ once: true }
+			);
+		});
+	}
+
+	buttons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			buttons.forEach((b) => b.classList.remove('active'));
+			btn.classList.add('active');
+			moveIndicatorTo(btn, true);
+			applyFilter(btn.dataset.filter ?? 'all');
+			if (workSection) {
+				const targetY = workSection.getBoundingClientRect().top + window.scrollY;
+				smoothScrollTo(targetY);
+			}
+		});
+	});
+
+	window.addEventListener('resize', () => {
+		const active = document.querySelector<HTMLElement>('.filter-btn.active');
+		if (active) moveIndicatorTo(active, false);
+	});
+
+	const clientsSection = document.getElementById('clients');
+	const clientFilterButtons = document.querySelectorAll<HTMLButtonElement>('.client-filter-btn');
+	const clientLogos = document.querySelectorAll<HTMLElement>('.client-logo');
+
+	clientFilterButtons.forEach((btn) => {
+		btn.addEventListener('mouseenter', () => {
+			const cat = btn.dataset.cat;
+			clientsSection?.classList.add('filtering');
+			clientLogos.forEach((logo) => {
+				logo.classList.toggle('highlighted', logo.dataset.cat === cat);
+			});
+		});
+		btn.addEventListener('mouseleave', () => {
+			clientsSection?.classList.remove('filtering');
+			clientLogos.forEach((logo) => logo.classList.remove('highlighted'));
+		});
+	});
+
+	const header3dEl = document.getElementById('header-3d-wrap');
+	const workSectionEl = document.getElementById('work');
+	if (header3dEl && workSectionEl && 'IntersectionObserver' in window) {
+		const compactObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					header3dEl.classList.toggle('is-compact', entry.isIntersecting);
+				});
+			},
+			{ rootMargin: '0px 0px 400px 0px' }
+		);
+		compactObserver.observe(workSectionEl);
+	}
+</script>

@@ -1,0 +1,493 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const doList = ['Motion graphics', 'Graphic design', 'Illustration'];
+const alsoList = ['Editing', 'Photography', 'Sound design'];
+
+const meansTags = [
+	'Art direction',
+	'Concept Development',
+	'Mood boards',
+	'Full 2D & 3D motion design',
+	'Character animation',
+	'Styleframes',
+	'Storyboarding',
+	'Title sequences',
+	'Poster design',
+	'UI design',
+	'Social content',
+	'Portrait photography',
+	'“To the beat” editing',
+	'Compositing',
+	'Music video treatment',
+	'Tech advising for animation or live action',
+	'Copywriting',
+	'…',
+];
+
+const agencies = [
+	'Carré Noir',
+	'TBWA\\Else',
+	'Havas',
+	'Prototype Studio',
+	'Helmut',
+	'Mazarine',
+	'Sixtine',
+	'Fisheye',
+	'Norma',
+	'Hypercontent',
+	'A lot more…',
+];
+
+const brandCategories = [
+	{ slug: 'esports', label: 'Esports & Gaming' },
+	{ slug: 'luxury', label: 'Luxury' },
+	{ slug: 'sports', label: 'Sports & Apparel' },
+	{ slug: 'beverage', label: 'Beverage & Spirits' },
+	{ slug: 'finance', label: 'Finance & Institutions' },
+	{ slug: 'culture', label: 'Culture & Music' },
+];
+
+const brands = [
+	{ name: 'Esports World Cup', category: 'esports' },
+	{ name: 'Riot Games', category: 'esports' },
+	{ name: 'Team Vitality', category: 'esports' },
+	{ name: 'International Chamber of Commerce', category: 'finance' },
+	{ name: 'Ubisoft', category: 'esports' },
+	{ name: 'Visa', category: 'finance' },
+	{ name: 'Roxy', category: 'sports' },
+	{ name: 'Pernod Ricard', category: 'beverage' },
+	{ name: 'Laurent-Perrier', category: 'beverage' },
+	{ name: 'Clarins', category: 'luxury' },
+	{ name: 'Baccarat', category: 'luxury' },
+	{ name: 'Christofle', category: 'luxury' },
+	{ name: 'G2 Esports', category: 'esports' },
+	{ name: 'Paris Saint-Germain', category: 'sports' },
+	{ name: 'La Poste', category: 'finance' },
+	{ name: 'Lafayette Anticipations', category: 'culture' },
+	{ name: 'Various bands', category: 'culture' },
+	{ name: 'And more…', category: '' },
+];
+---
+
+<BaseLayout title="About — Nicolas Rakotoary">
+	<section class="about-hero">
+		<div class="wrap about-hero-grid">
+			<div class="about-hero-text">
+				<h1><span class="rise">So,</span> <span class="serif rise" style="animation-delay:0.12s">here I am</span></h1>
+				<div class="about-bio">
+					<p class="reveal">
+						My name is Nicolas Rakotoary, but you can call me <strong>Nico Rako</strong>. This
+						<strong>French</strong> guy also speaks and writes <strong>English</strong> fluently. Yay.
+					</p>
+					<p class="reveal">
+						I lived in Paris for a while, then found my heart's delight in the Southwest of
+						<strong>France</strong> — home of the neverending waves.
+					</p>
+					<p class="reveal">
+						I'm a graduate of <strong>Gobelins, Paris</strong>, class of 2003 — so that's… oh wait…
+						<strong>23 years</strong> of honing my craft in graphic design and motion.
+					</p>
+					<p class="reveal">
+						I'm currently open to <strong>freelance opportunities</strong>, and happy to discuss
+						<strong>permanent positions</strong> too.
+					</p>
+					<p class="local-time reveal">
+						It's <strong id="local-time">--:--</strong> where I am right now <span class="dot"></span>
+					</p>
+				</div>
+			</div>
+			<div class="about-hero-portrait">
+				<img
+					id="about-portrait"
+					src="/images/portraits/portrait - nicorako - capsule-tight.png"
+					alt="Portrait of Nicolas Rakotoary"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<div class="wrap">
+		<section class="skills">
+			<div class="skills-col reveal">
+				<span class="eyebrow">I do</span>
+				<ul class="skills-list primary">
+					{doList.map((s) => <li>{s}</li>)}
+				</ul>
+			</div>
+			<div class="skills-col reveal">
+				<span class="eyebrow">I also do</span>
+				<ul class="skills-list secondary">
+					{alsoList.map((s) => <li>{s}</li>)}
+				</ul>
+			</div>
+		</section>
+
+		<section class="means reveal">
+			<span class="eyebrow">Which means</span>
+			<p class="means-flow">
+				{
+					meansTags.map((t, i) => (
+						<>
+							<span class="means-tag">{t}</span>
+							{i < meansTags.length - 1 && <span class="means-slash">/</span>}
+						</>
+					))
+				}
+			</p>
+		</section>
+
+		<div class="generalist-banner reveal">
+			<span class="generalist-text">(Yes, I'm a generalist)</span>
+		</div>
+
+		<section class="collab">
+			<div class="collab-col reveal">
+				<span class="eyebrow">Selected agencies</span>
+				<p class="collab-flow">
+					{
+						agencies.map((a, i) => (
+							<>
+								<span>{a}</span>{' '}
+								{i < agencies.length - 1 && <><span class="collab-slash">/</span>{' '}</>}
+							</>
+						))
+					}
+				</p>
+			</div>
+			<div class="collab-col reveal">
+				<span class="eyebrow">Selected brands</span>
+				<div class="brand-categories">
+					{
+						brandCategories.map((cat) => (
+							<button type="button" class="brand-category-btn" data-category={cat.slug}>
+								{cat.label}
+							</button>
+						))
+					}
+				</div>
+				<p class="collab-flow brand-flow">
+					{
+						brands.map((b, i) => (
+							<>
+								<span class="brand-item" data-category={b.category}>{b.name}</span>{' '}
+								{i < brands.length - 1 && <><span class="collab-slash">/</span>{' '}</>}
+							</>
+						))
+					}
+				</p>
+			</div>
+		</section>
+	</div>
+</BaseLayout>
+
+<style>
+	.wrap {
+		padding-left: max(0px, calc(35px - max(0px, calc((100vw - 1180px) / 2))));
+	}
+	/* ---------- HERO ---------- */
+	.about-hero {
+		padding: 100px 0 80px;
+		border-bottom: 1px solid var(--line);
+	}
+	.about-hero-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) min(424px, 34vw);
+		gap: 60px;
+		align-items: start;
+	}
+	.about-hero-portrait {
+		position: relative;
+		z-index: 5;
+		justify-self: end;
+	}
+	.about-hero-portrait img {
+		display: block;
+		width: 100%;
+		max-width: 424px;
+		height: auto;
+		will-change: transform;
+	}
+	.eyebrow {
+		display: inline-block;
+		font-size: 23px;
+		color: var(--ink-soft);
+		letter-spacing: 0.02em;
+		background: var(--card-bg);
+		padding: 4px 12px 4px 0;
+		margin-bottom: 18px;
+	}
+	.about-hero h1 {
+		font-family: var(--font-heading);
+		font-size: clamp(40px, 5.2vw, 72px);
+		line-height: 1.1;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		margin-bottom: 40px;
+	}
+	.about-hero h1 .serif {
+		position: relative;
+		display: inline-block;
+		font-family: 'Playfair Display', serif;
+		font-style: italic;
+		padding: 0.02em 0.18em;
+	}
+	.about-hero h1 .serif::before {
+		content: '';
+		position: absolute;
+		top: 10px;
+		left: -1.5px;
+		right: -1.5px;
+		bottom: -1.5px;
+		border: 1.5px solid var(--ink);
+	}
+	.about-bio {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		max-width: 640px;
+	}
+	.about-bio p {
+		font-size: 19px;
+		font-family: var(--font-body);
+		color: var(--ink-soft);
+		line-height: 1.5;
+	}
+	.about-bio strong {
+		display: inline-block;
+		color: var(--ink);
+		font-weight: 600;
+		border: 1px solid var(--ink);
+		padding: 0.02em 0.28em;
+	}
+	.local-time {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+	.dot {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--accent);
+		animation: pulse 0.8s ease-in-out infinite;
+	}
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.35;
+		}
+	}
+
+	/* ---------- SKILLS ---------- */
+	.skills {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+		padding: 60px 0;
+		border-bottom: 1px solid var(--line);
+	}
+	.skills-col {
+		display: flex;
+		flex-direction: column;
+	}
+	.skills-list {
+		list-style: none;
+	}
+	.skills-list.primary li {
+		font-family: var(--font-heading);
+		font-size: clamp(26px, 3vw, 38px);
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		line-height: 1.35;
+	}
+	.skills-list.secondary li {
+		font-family: var(--font-heading);
+		font-size: clamp(18px, 1.6vw, 22px);
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		color: var(--ink-soft);
+		line-height: 1.7;
+	}
+
+	/* ---------- MEANS ---------- */
+	.means {
+		padding: 60px 0;
+		border-bottom: 1px solid var(--line);
+	}
+	.means-flow {
+		font-family: var(--font-heading);
+		font-size: clamp(20px, 2.4vw, 30px);
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+	.means-tag {
+		color: var(--ink);
+	}
+	.means-slash {
+		color: var(--accent);
+		margin: 0 10px;
+	}
+
+	/* ---------- GENERALIST BANNER ---------- */
+	.generalist-banner {
+		background: #000;
+		padding: 16px 32px;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.generalist-text {
+		font-family: 'Playfair Display', serif;
+		font-style: italic;
+		font-size: clamp(20px, 2.4vw, 30px);
+		color: #fff;
+	}
+
+	/* ---------- COLLAB ---------- */
+	.collab {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 40px;
+		padding: 60px 0 80px;
+	}
+	.collab-col {
+		min-width: 0;
+	}
+	.collab-flow {
+		font-size: 15px;
+		line-height: 2;
+		color: var(--ink-soft);
+	}
+	.collab-flow span:not(.collab-slash) {
+		white-space: nowrap;
+	}
+	.collab-slash {
+		color: var(--accent);
+		margin: 0 8px;
+	}
+
+	.brand-categories {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 16px;
+	}
+	.brand-category-btn {
+		font-family: var(--font-heading);
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--ink-soft);
+		background: transparent;
+		box-shadow: inset 0 0 0 1px var(--line);
+		border: none;
+		padding: 6px 12px;
+		cursor: pointer;
+		transition: background 0.2s ease, color 0.2s ease;
+	}
+	.brand-category-btn:hover,
+	.brand-category-btn.is-active {
+		background: var(--accent);
+		color: var(--ink-on-accent);
+	}
+	.brand-item {
+		transition: opacity 0.2s ease, color 0.2s ease;
+	}
+	.brand-item.is-highlighted {
+		color: var(--ink);
+		font-weight: 600;
+	}
+	.brand-item.is-dimmed {
+		opacity: 0.3;
+	}
+
+	@media (max-width: 900px) {
+		.about-hero-grid {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+		.about-hero-portrait {
+			max-width: 280px;
+			justify-self: center;
+			order: -1;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.skills,
+		.collab {
+			grid-template-columns: 1fr;
+			gap: 32px;
+		}
+	}
+</style>
+
+<script>
+	import { initLocalTime } from '../scripts/localTime';
+
+	initLocalTime('local-time');
+
+	const portrait = document.getElementById('about-portrait');
+	if (portrait) {
+		let ticking = false;
+		function updateParallax() {
+			portrait!.style.transform = `translateY(${window.scrollY * 0.25 + 10}px)`;
+			ticking = false;
+		}
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!ticking) {
+					requestAnimationFrame(updateParallax);
+					ticking = true;
+				}
+			},
+			{ passive: true }
+		);
+		updateParallax();
+	}
+
+	const categoryBtns = document.querySelectorAll<HTMLButtonElement>('.brand-category-btn');
+	const brandItems = document.querySelectorAll<HTMLElement>('.brand-item');
+
+	function setActiveCategory(category: string | null) {
+		brandItems.forEach((item) => {
+			if (!category) {
+				item.classList.remove('is-dimmed', 'is-highlighted');
+				return;
+			}
+			const matches = item.dataset.category === category;
+			item.classList.toggle('is-highlighted', matches);
+			item.classList.toggle('is-dimmed', !matches);
+		});
+	}
+
+	categoryBtns.forEach((btn) => {
+		btn.addEventListener('mouseenter', () => {
+			if (!document.querySelector('.brand-category-btn.is-active')) {
+				setActiveCategory(btn.dataset.category ?? null);
+			}
+		});
+		btn.addEventListener('mouseleave', () => {
+			if (!document.querySelector('.brand-category-btn.is-active')) {
+				setActiveCategory(null);
+			}
+		});
+		btn.addEventListener('click', () => {
+			const wasActive = btn.classList.contains('is-active');
+			categoryBtns.forEach((b) => b.classList.remove('is-active'));
+			if (wasActive) {
+				setActiveCategory(null);
+			} else {
+				btn.classList.add('is-active');
+				setActiveCategory(btn.dataset.category ?? null);
+			}
+		});
+	});
+</script>

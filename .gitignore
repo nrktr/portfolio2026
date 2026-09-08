@@ -22,3 +22,137 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Raw, unoptimized GIF sources kept locally for reference — the site only
+# uses their "-optimized.webp" counterparts, so these never ship.
+public/images/projects/baccarat-resonance/gifs/BACCARAT - RESONANCE - LOOP01.gif
+public/images/projects/character-animation-reel/gifs/KID GIRL - 600PXHEIGHT - LOOP01.gif
+public/images/projects/christofle-malmaison/gifs/CHRISTOFLE - LOOP01.gif
+public/images/projects/esports-world-cup-explainer/gifs/EWC2026 - LOOP01.gif
+public/images/projects/fans-storyboard/gifs/FANS-PORTFOLIO-LOOP01.gif
+public/images/projects/g2-esports-mastercard-gamer-academy/gifs/MCGA25 - LOOP01.gif
+public/images/projects/gelled-water-droid-fantom/gifs/DROIDFANTOM-LOOP01.gif
+public/images/projects/ghoster-crame/gifs/GHOSTER-LOOP01.gif
+public/images/projects/icc-motion-identity/gifs/ICC-WCF-LOOP01.gif
+public/images/projects/just-dance-2022-world-tour/gifs/JUSTDANCE2022-PORTFOLIO-LOOP01.gif
+public/images/projects/khf-music-video/gifs/KHF-LOOP01.gif
+public/images/projects/laurent-perrier-voeux/gifs/LP-VOEUX2026 - LOOP01.gif
+public/images/projects/league-of-legends-2023-formats-ecosystem/gifs/LEC-FORMAT-LOOP01.gif
+public/images/projects/lec-dance-with-me/gifs/LEC-DANCEWITHME - LOOP01.gif
+public/images/projects/resilience/gifs/RESILIENCE-LOOP01.gif
+public/images/projects/riot-games-lec-give-me-chaos/gifs/RG-CHAOS - LOOP01.gif
+public/images/projects/roxy-cute-2-0/gifs/ROXY-CUTE-LOOP01.gif
+public/images/projects/team-vitality-x-evnia-monitor-madness/gifs/TV-EVNIA - LOOP01.gif
+public/images/projects/the-api-directors-cut/gifs/PROTOTYPE-API-LOOP01.gif
+public/images/projects/the-whispering-eclipse/gifs/WHISPERINGECLIPSE - LOOP01.gif
+public/images/projects/tsunami-alert/gifs/TSUNAMI-LOOP01.gif
+public/images/projects/vitality-alternate/gifs/VITALITY-ALTERNATE-LOOP01.gif
+public/images/projects/vitality-x-asus-rog-x-blast-tv/gifs/TVxASUSROGxBLAST - LOOP01.gif
+
+# Raw, unoptimized PNG sources kept locally for reference — the site only
+# uses their "-optimized.webp" counterparts, so these never ship.
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_03_15.Still001_web.png
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_06_24.Still003_web.png
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_10_10.Still004_web.png
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_13_09.Still005_web.png
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_31_02.Still006_web.png
+public/images/projects/baccarat-resonance/carousel/Titre_chef x tailleur_16x9 _ 1008-1635.00_00_39_35.Still007_web.png
+public/images/projects/baccarat-resonance/cover.png
+public/images/projects/christofle-malmaison/carousel/PS - CHRISTOFLE - DC - 12fps.mp4_snapshot_00.41.440.png
+public/images/projects/christofle-malmaison/carousel/thumbnail - christofle - riviera.png
+public/images/projects/christofle-malmaison/carousel/Unveiling Malmaison Riviera, A Radiant Ode To The Mediterranean Art Of Living.00_00_28_08.Still001.png
+public/images/projects/christofle-malmaison/carousel/Unveiling Malmaison Riviera, A Radiant Ode To The Mediterranean Art Of Living.00_00_48_20.Still002.png
+public/images/projects/christofle-malmaison/cover.png
+public/images/projects/esports-world-cup-explainer/carousel/players.png
+public/images/projects/esports-world-cup-explainer/carousel/top esports club.png
+public/images/projects/esports-world-cup-explainer/cover.png
+public/images/projects/fans-storyboard/carousel/01.png
+public/images/projects/fans-storyboard/carousel/02.png
+public/images/projects/fans-storyboard/carousel/03.png
+public/images/projects/fans-storyboard/carousel/04.png
+public/images/projects/fans-storyboard/carousel/05.png
+public/images/projects/fans-storyboard/carousel/06.png
+public/images/projects/fans-storyboard/carousel/07.png
+public/images/projects/fans-storyboard/carousel/08.png
+public/images/projects/fans-storyboard/carousel/09.png
+public/images/projects/fans-storyboard/carousel/10.png
+public/images/projects/fans-storyboard/carousel/11.png
+public/images/projects/fans-storyboard/carousel/12.png
+public/images/projects/fans-storyboard/carousel/13.png
+public/images/projects/fans-storyboard/carousel/14.png
+public/images/projects/fans-storyboard/carousel/15.png
+public/images/projects/fans-storyboard/carousel/16.png
+public/images/projects/fans-storyboard/cover.png
+public/images/projects/g2-esports-mastercard-gamer-academy/cover.png
+public/images/projects/just-dance-2022-world-tour/carousel/JDU 2022 - WORLD TOUR - STORYBOARD - 11.png
+public/images/projects/just-dance-2022-world-tour/carousel/JDU 2022 - WORLD TOUR - STORYBOARD - 2.png
+public/images/projects/just-dance-2022-world-tour/carousel/JDU 2022 - WORLD TOUR - STORYBOARD - 3.png
+public/images/projects/just-dance-2022-world-tour/carousel/JDU 2022 - WORLD TOUR - STORYBOARD - 5.png
+public/images/projects/just-dance-2022-world-tour/cover.png
+public/images/projects/kirosen-covers/carousel/pattern_10b_.png
+public/images/projects/kirosen-covers/carousel/pattern_1b_.png
+public/images/projects/kirosen-covers/carousel/pattern_2b_.png
+public/images/projects/kirosen-covers/carousel/pattern_3b_.png
+public/images/projects/kirosen-covers/carousel/pattern_4b_.png
+public/images/projects/kirosen-covers/carousel/pattern_5b_.png
+public/images/projects/kirosen-covers/carousel/pattern_6B_.png
+public/images/projects/kirosen-covers/carousel/pattern_7b_.png
+public/images/projects/kirosen-covers/carousel/pattern_8b_.png
+public/images/projects/kirosen-covers/carousel/pattern_9b_.png
+public/images/projects/kirosen-covers/cover.png
+public/images/projects/kirosen-covers/featured/kirosen01.png
+public/images/projects/kirosen-covers/featured/kirosen02.png
+public/images/projects/laurent-perrier-voeux/cover.png
+public/images/projects/lec-dance-with-me/cover.png
+public/images/projects/oo-end-year-gala-logo/cover.png
+public/images/projects/riot-games-lec-give-me-chaos/cover.png
+public/images/projects/team-vitality-x-evnia-monitor-madness/carousel/Thumbnail - evnia monitor madness - less vs derke v2.png
+public/images/projects/team-vitality-x-evnia-monitor-madness/carousel/Thumbnail - evnia monitor madness - less vs derke v3a.png
+public/images/projects/team-vitality-x-evnia-monitor-madness/carousel/Thumbnail - evnia monitor madness - less vs derke v3b.png
+public/images/projects/team-vitality-x-evnia-monitor-madness/carousel/Thumbnail - evnia monitor madness - less vs derke.png
+public/images/projects/team-vitality-x-evnia-monitor-madness/cover.png
+public/images/projects/the-whispering-eclipse/cover.png
+public/images/projects/vitality-alternate/cover.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.01.899.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.03.962.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.05.808.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.09.227.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.11.616.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.14.791.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.16.827.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.20.160.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.23.069.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.28.009.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.32.711.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.35.871.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.38.111.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.39.003.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.45.272.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.47.430.png
+public/images/projects/vitality-vhive2-0/carousel/TV - V.HIVE 2.0 - 16x9.mp4_snapshot_00.51.756.png
+public/images/projects/vitality-vhive2-0/carousel/v.hive - static announcement - 1920x1080.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/off/TV - ASUS ROG x BLAST - 05.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 00.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 01.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 02.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 03.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 04.png
+public/images/projects/oo-end-year-gala-logo/carousel/Loreal - Gala logos - piste sélectionnée_Page_1.jpg
+public/images/projects/oo-end-year-gala-logo/carousel/Loreal - Gala logos - piste sélectionnée_Page_2.jpg
+public/images/projects/oo-end-year-gala-logo/carousel/Loreal - Gala logos - piste sélectionnée_Page_3.jpg
+public/images/projects/oo-end-year-gala-logo/carousel/Loreal - Gala logos - piste sélectionnée_Page_4.jpg
+public/images/projects/oo-end-year-gala-logo/carousel/Loreal - Gala logos - piste sélectionnée_Page_5.jpg
+public/images/projects/vitality-x-asus-rog-x-blast-tv/carousel/TV - ASUS ROG x BLAST - 06.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/cover.png
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0088.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0090.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0091.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0093.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0097.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/IMG_0098.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0087.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0089.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0092.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0094.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0095.PNG
+public/images/projects/vitality-x-asus-rog-x-blast-tv/storyboard/off/IMG_0096.PNG
