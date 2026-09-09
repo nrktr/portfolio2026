@@ -29,14 +29,14 @@ const credits = [
 					<span class="swipe-btn-tooltip">{prevProject.title}</span>
 					<a href={`/work/${prevProject.slug}`} class="swipe-btn">
 						<span class="swipe-btn-fill"></span>
-						<span class="swipe-btn-text">← Previous project</span>
+						<span class="swipe-btn-text"><span class="swipe-btn-arrow">← </span>Previous <br class="swipe-btn-break" />project</span>
 					</a>
 				</div>
 				<div class="swipe-btn-wrap">
 					<span class="swipe-btn-tooltip swipe-btn-tooltip--right">{nextProject.title}</span>
 					<a href={`/work/${nextProject.slug}`} class="swipe-btn">
 						<span class="swipe-btn-fill"></span>
-						<span class="swipe-btn-text">Next project →</span>
+						<span class="swipe-btn-text">Next <br class="swipe-btn-break" />project<span class="swipe-btn-arrow"> →</span></span>
 					</a>
 				</div>
 			</div>
@@ -116,14 +116,14 @@ const credits = [
 						<span class="swipe-btn-tooltip">{prevProject.title}</span>
 						<a href={`/work/${prevProject.slug}`} class="swipe-btn">
 							<span class="swipe-btn-fill"></span>
-							<span class="swipe-btn-text">← Previous project</span>
+							<span class="swipe-btn-text"><span class="swipe-btn-arrow">← </span>Previous <br class="swipe-btn-break" />project</span>
 						</a>
 					</div>
 					<div class="swipe-btn-wrap">
 						<span class="swipe-btn-tooltip swipe-btn-tooltip--right">{nextProject.title}</span>
 						<a href={`/work/${nextProject.slug}`} class="swipe-btn">
 							<span class="swipe-btn-fill"></span>
-							<span class="swipe-btn-text">Next project →</span>
+							<span class="swipe-btn-text">Next <br class="swipe-btn-break" />project<span class="swipe-btn-arrow"> →</span></span>
 						</a>
 					</div>
 				</div>
@@ -195,6 +195,9 @@ const credits = [
 	.swipe-btn-text {
 		position: relative;
 		z-index: 1;
+	}
+	.swipe-btn-break {
+		display: none;
 	}
 	.swipe-btn-wrap {
 		position: relative;
@@ -431,6 +434,22 @@ const credits = [
 		}
 		.plr-thumb {
 			display: none;
+		}
+		.swipe-btn-tooltip {
+			display: none;
+		}
+		.swipe-btn {
+			height: auto;
+			min-height: 39px;
+			padding: 8px 16px;
+			line-height: 1.3;
+			text-align: center;
+		}
+		.swipe-btn-arrow {
+			display: none;
+		}
+		.swipe-btn-break {
+			display: block;
 		}
 	}
 </style>

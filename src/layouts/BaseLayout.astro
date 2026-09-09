@@ -498,6 +498,23 @@ const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false 
 		width: 28px;
 		height: 28px;
 	}
+	@media (max-width: 760px) {
+		#back-to-top {
+			top: auto;
+			bottom: 20px;
+			right: 16px;
+			transform: none;
+			width: 48px;
+			height: 48px;
+		}
+		#back-to-top:hover {
+			transform: scale(1.06);
+		}
+		#back-to-top svg {
+			width: 14px;
+			height: 14px;
+		}
+	}
 
 	/* ---------- CUSTOM SCROLLBAR ---------- */
 	#custom-scrollbar {
@@ -522,6 +539,18 @@ const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false 
 </style>
 
 <script>
+	// Landing on a page with a URL fragment (e.g. following the "Reel" link
+	// from another page to "/#showreel") is handled entirely below, with our
+	// own mobile-aware centering offset. The browser's native fragment jump
+	// would otherwise land at the raw element top and can re-fire as late-
+	// loading content (like the showreel iframe) shifts the layout, clobbering
+	// our correction — so the fragment is stripped from the URL immediately,
+	// before the browser acts on it, and restored once we've scrolled.
+	const initialHashId = window.location.hash ? window.location.hash.slice(1) : null;
+	if (initialHashId) {
+		history.replaceState(null, '', window.location.pathname + window.location.search);
+	}
+
 	// Theme toggle: light stays the default on every first visit (no
 	// prefers-color-scheme check), dark only ever turns on from an explicit
 	// click, persisted in localStorage. The inline <head> script already
@@ -649,21 +678,50 @@ const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false 
 		smoothScrollTo(0);
 	});
 
+	// No manual offset needed for most targets here: the "Work" target (the
+	// filters bar) is sticky with its own top offset already accounting for
+	// the header plus a gap, so it settles in the right place on its own
+	// regardless of exactly where the scroll lands. The showreel gets a
+	// manual centering offset on mobile.
+	function computeScrollTargetY(id: string): number | null {
+		const target = document.getElementById(id);
+		if (!target) return null;
+		const rect = target.getBoundingClientRect();
+		let targetY = rect.top + window.scrollY;
+		if (id === 'showreel' && window.matchMedia('(max-width: 760px)').matches) {
+			targetY += rect.height / 2 - window.innerHeight / 2;
+		}
+		return targetY;
+	}
+
 	document.querySelectorAll<HTMLAnchorElement>('a[href^="/#"]').forEach((link) => {
 		const id = link.getAttribute('href')!.slice(2);
 		link.addEventListener('click', (e) => {
-			const target = document.getElementById(id);
-			if (!target) return;
+			const targetY = computeScrollTargetY(id);
+			if (targetY === null) return;
 			e.preventDefault();
-			// No manual offset needed here: the "Work" target (the filters bar)
-			// is sticky with its own top offset already accounting for the header
-			// plus a gap, so it settles in the right place on its own regardless
-			// of exactly where the scroll lands.
-			const targetY = target.getBoundingClientRect().top + window.scrollY;
 			smoothScrollTo(targetY);
 			history.pushState(null, '', `/#${id}`);
 		});
 	});
+
+	// Landing directly on a page carrying a hash (e.g. following the "Reel"
+	// link from another page) skips the click handler above, so the browser's
+	// native fragment jump lands at the raw element top instead of our
+	// adjusted position (e.g. the mobile showreel centering). Correct it once
+	// layout has settled.
+	if (initialHashId) {
+		const id = initialHashId;
+		// One frame is enough: target sections reserve their layout space via
+		// CSS (e.g. the showreel's aspect-ratio box) rather than depending on
+		// the iframe finishing its (possibly slow or blocked) network load, so
+		// there's no need to wait for the 'load' event here.
+		requestAnimationFrame(() => {
+			const targetY = computeScrollTargetY(id);
+			if (targetY !== null) window.scrollTo(0, targetY);
+			history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${id}`);
+		});
+	}
 
 	const customScrollbar = document.getElementById('custom-scrollbar');
 	let isDraggingScrollbar = false;
@@ -847,23 +905,24 @@ const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false 
 				}
 			}
 			const message = data as { context?: string; event?: string };
-			if (message?.context === 'player.js' && message.event === 'play') {
+			if (message?.context !== 'player.js') return;
+			if (message.event === 'ready') {
+				// Only now is the player actually listening for commands — sending
+				// addEventListener any earlier (e.g. on the iframe's 'load', which
+				// just means its document parsed, not that the player script has
+				// initialized) risks the registration being silently dropped,
+				// leaving the bar to linger until the fallback timeout even though
+				// the video itself may already be visibly playing.
+				iframe.contentWindow?.postMessage(
+					JSON.stringify({ context: 'player.js', version: '1.0', method: 'addEventListener', value: 'play' }),
+					PLAYER_JS_ORIGIN
+				);
+			} else if (message.event === 'play') {
 				clearTimeout(fallbackTimer);
 				dismiss();
 			}
 		}
 		window.addEventListener('message', onMessage);
-
-		iframe.addEventListener(
-			'load',
-			() => {
-				iframe.contentWindow?.postMessage(
-					JSON.stringify({ context: 'player.js', version: '1.0', method: 'addEventListener', value: 'play' }),
-					PLAYER_JS_ORIGIN
-				);
-			},
-			{ once: true }
-		);
 	}
 
 	document

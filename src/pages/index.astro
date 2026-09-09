@@ -8,6 +8,7 @@ const projects = [
 		title: 'Team Vitality — V.Hive 2.0',
 		label: 'App launch video ad',
 		image: '/images/projects/vitality-vhive2-0/carousel/v.hive - static announcement - 1920x1080-optimized.webp',
+		hoverImage: '/images/projects/vitality-vhive2-0/gifs/TV-VHIVE-2-0-LOOP01-optimized.webp',
 	},
 	{
 		cat: 'motion',
@@ -731,6 +732,24 @@ const filters = [
 	@media (max-width: 600px) {
 		.grid {
 			grid-template-columns: 1fr;
+		}
+		.clients {
+			display: none;
+		}
+		.hero-side {
+			margin-left: 0;
+			align-items: center;
+		}
+		.hero-side p {
+			text-align: center;
+		}
+		.filters {
+			justify-content: flex-start;
+			gap: 3px;
+		}
+		.filter-btn {
+			font-size: 15px;
+			padding: 4px 9px;
 		}
 	}
 	@media (min-width: 1400px) {
