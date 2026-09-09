@@ -555,7 +555,15 @@ const brands = [
 		opacity: 0;
 	}
 	.faq-question.is-active {
-		color: var(--accent);
+		background: #fff;
+		color: #000;
+	}
+	.faq-question.is-active .faq-question-num {
+		color: #000;
+	}
+	.faq-question.is-active .faq-icon::before,
+	.faq-question.is-active .faq-icon::after {
+		background: #000;
 	}
 	.faq-question:hover:not(.is-active) .faq-question-text {
 		color: var(--ink-soft);
