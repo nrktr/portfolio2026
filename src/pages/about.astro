@@ -48,6 +48,21 @@ const brandCategories = [
 	{ slug: 'culture', label: 'Culture & Music' },
 ];
 
+const faqItems = [
+	{
+		q: 'What’s your day rate?',
+		a: 'I’m more of a “what’s your project’s budget?” kind of guy, but I do have a day rate — feel free to ask.',
+	},
+	{
+		q: 'Can you build your own team, or fit into an existing one?',
+		a: 'I can work with your team, or with people I personally know and trust across the whole scope of expertise in the creative design industry.',
+	},
+	{
+		q: 'What’s your style?',
+		a: 'I enjoy being eclectic, from minimalistic designs to heavily chaotic graphic arrangements. You could call me a chameleon.',
+	},
+];
+
 const brands = [
 	{ name: 'Esports World Cup', category: 'esports' },
 	{ name: 'Riot Games', category: 'esports' },
@@ -100,6 +115,7 @@ const brands = [
 						<a href="https://framerate.tv/watch/40a5e30a-4e43-4323-96ae-5ffaf38dcf49">this link</a>.
 					</p>
 				</div>
+				<p class="portrait-credit reveal">Portrait by Enzo Lucia</p>
 			</div>
 			<div class="about-hero-portrait">
 				<picture>
@@ -147,6 +163,31 @@ const brands = [
 		<div class="generalist-banner reveal">
 			<span class="generalist-text">(Yes, I'm a generalist)</span>
 		</div>
+
+		<section class="faq reveal">
+			<div class="faq-block">
+				<div class="faq-questions">
+					{
+						faqItems.map((item, i) => (
+							<button type="button" class="faq-question" data-index={i}>
+								<span class="faq-question-num">0{i + 1}</span>
+								<span class="faq-question-text">{item.q}</span>
+								<span class="faq-icon" aria-hidden="true"></span>
+							</button>
+						))
+					}
+				</div>
+				<div class="faq-answer-panel">
+					{
+						faqItems.map((item, i) => (
+							<div class="faq-answer" data-index={i}>
+								<p>{item.a}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
 
 		<section class="collab">
 			<div class="collab-col reveal">
@@ -299,6 +340,12 @@ const brands = [
 			opacity: 0.35;
 		}
 	}
+	.portrait-credit {
+		margin-top: 24px;
+		font-size: 13px;
+		color: var(--ink-soft);
+		letter-spacing: 0.02em;
+	}
 
 	/* ---------- SKILLS ---------- */
 	.skills {
@@ -423,6 +470,153 @@ const brands = [
 		opacity: 0.3;
 	}
 
+	/* ---------- FAQ ---------- */
+	.faq {
+		padding: 60px 0;
+		border-bottom: 1px solid var(--line);
+	}
+	.faq-block {
+		width: 100%;
+		background: var(--card-bg);
+		display: flex;
+		align-items: stretch;
+		overflow: hidden;
+	}
+	.faq-questions {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 100%;
+		min-width: 0;
+		padding: 8px 0;
+		transition: flex-basis 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.faq-block.is-open .faq-questions {
+		flex: 0 0 42%;
+	}
+	.faq-question {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		width: 100%;
+		font-family: var(--font-body);
+		text-align: left;
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid var(--line);
+		padding: 20px 28px;
+		cursor: pointer;
+		color: var(--ink);
+	}
+	.faq-questions .faq-question:first-child {
+		border-top: 1px solid var(--line);
+	}
+	.faq-question-num {
+		flex: none;
+		font-family: var(--font-heading);
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--ink-soft);
+	}
+	.faq-question-text {
+		flex: 1 1 auto;
+		font-size: 17px;
+		font-weight: 600;
+		line-height: 1.4;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.faq-icon {
+		flex: none;
+		position: relative;
+		width: 14px;
+		height: 14px;
+	}
+	.faq-icon::before,
+	.faq-icon::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background: var(--ink);
+		transform: translate(-50%, -50%);
+		transition: transform 0.3s ease, opacity 0.3s ease;
+	}
+	.faq-icon::before {
+		width: 14px;
+		height: 1.5px;
+	}
+	.faq-icon::after {
+		width: 1.5px;
+		height: 14px;
+	}
+	.faq-question.is-active .faq-icon::after {
+		transform: translate(-50%, -50%) rotate(90deg);
+		opacity: 0;
+	}
+	.faq-question.is-active {
+		color: var(--accent);
+	}
+	.faq-question:hover:not(.is-active) .faq-question-text {
+		color: var(--ink-soft);
+	}
+	.faq-answer-panel {
+		position: relative;
+		flex: 0 0 0%;
+		min-width: 0;
+		transition: flex-basis 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		border-left: 1px solid transparent;
+	}
+	.faq-block.is-open .faq-answer-panel {
+		flex: 1 1 58%;
+		border-left-color: var(--line);
+	}
+	.faq-answer {
+		position: absolute;
+		inset: 0;
+		padding: 28px 32px;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.35s ease 0.1s;
+	}
+	.faq-answer.is-visible {
+		opacity: 1;
+		visibility: visible;
+	}
+	.faq-answer p {
+		font-size: 17px;
+		line-height: 1.6;
+		color: var(--ink-soft);
+	}
+
+	@media (max-width: 900px) {
+		.faq-block {
+			width: 100%;
+			flex-direction: column;
+		}
+		.faq-block.is-open .faq-questions {
+			flex-basis: auto;
+		}
+		.faq-question-text {
+			white-space: normal;
+		}
+		.faq-answer-panel {
+			flex-basis: auto !important;
+			border-left: none !important;
+		}
+		.faq-block.is-open .faq-answer-panel {
+			flex: none;
+		}
+		.faq-answer {
+			position: static;
+			display: none;
+			padding: 0 28px 20px;
+		}
+		.faq-answer.is-visible {
+			display: block;
+		}
+	}
+
 	@media (max-width: 900px) {
 		.about-hero-grid {
 			grid-template-columns: 1fr;
@@ -471,6 +665,30 @@ const brands = [
 			{ passive: true }
 		);
 		updateParallax();
+	}
+
+	const faqBlock = document.querySelector<HTMLElement>('.faq-block');
+	if (faqBlock) {
+		const faqQuestions = faqBlock.querySelectorAll<HTMLButtonElement>('.faq-question');
+		const faqAnswers = faqBlock.querySelectorAll<HTMLElement>('.faq-answer');
+
+		faqQuestions.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const index = btn.dataset.index;
+				const wasActive = btn.classList.contains('is-active');
+
+				faqQuestions.forEach((b) => b.classList.remove('is-active'));
+				faqAnswers.forEach((a) => a.classList.remove('is-visible'));
+
+				if (wasActive) {
+					faqBlock.classList.remove('is-open');
+				} else {
+					btn.classList.add('is-active');
+					faqBlock.classList.add('is-open');
+					faqBlock.querySelector(`.faq-answer[data-index="${index}"]`)?.classList.add('is-visible');
+				}
+			});
+		});
 	}
 
 	const categoryBtns = document.querySelectorAll<HTMLButtonElement>('.brand-category-btn');
