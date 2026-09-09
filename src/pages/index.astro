@@ -414,7 +414,9 @@ const filters = [
 		display: flex;
 		flex-direction: column;
 		gap: 3px;
-		margin-left: -29px;
+		/* Matches the 0.18em left padding on h1 .serif ("designer"), so this
+		   text lines up with the "d" glyph, not the span's own edge. */
+		margin-left: calc(clamp(40px, 5.2vw, 72px) * 0.18);
 	}
 	.hero-side p {
 		font-size: 20px;
@@ -423,7 +425,6 @@ const filters = [
 		line-height: 1.35;
 		max-width: 42ch;
 		margin-top: 16px;
-		margin-left: 10px;
 	}
 	.dot {
 		display: inline-block;
