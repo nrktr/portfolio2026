@@ -3,10 +3,15 @@ import '../styles/global.css';
 
 interface Props {
 	title?: string;
+	description?: string;
 	hidePortrait3D?: boolean;
 }
 
-const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false } = Astro.props;
+const {
+	title = 'Nicolas Rakotoary — Art Director & Motion Designer',
+	description = 'Nicolas Rakotoary aka Nico Rako — art director & motion designer based in France. More than 20 years crafting graphic design and motion for everyone, everywhere.',
+	hidePortrait3D = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,6 +22,7 @@ const { title = 'Nicolas Rakotoary — Motion Designer', hidePortrait3D = false 
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<meta name="description" content={description} />
 		<script is:inline>
 			// Runs before first paint so a returning dark-mode visitor never sees a
 			// flash of the light theme. Light stays the default: only an explicit
