@@ -7,6 +7,7 @@ export interface ProjectSummary {
 }
 
 export const projects: ProjectSummary[] = [
+	{ slug: 'esports-gaming-reel-2026', title: 'Esports & Games Reel', client: 'Various', year: '2019-2026', cover: 'esports-reel-cover-0-optimized.webp' },
 	{ slug: 'vitality-vhive2-0', title: 'Team Vitality – V.Hive 2.0', client: 'Team Vitality', year: '2024', cover: 'carousel/v.hive - static announcement - 1920x1080-optimized.webp' },
 	{ slug: 'g2-esports-mastercard-gamer-academy', title: 'G2 Esports – Mastercard Gamer Academy', client: 'G2 Esports & Mastercard', year: '2025', cover: 'cover-optimized.webp' },
 	{ slug: 'vitality-x-asus-rog-x-blast-tv', title: 'Vitality × ASUS RoG × BLAST.tv', client: 'Team Vitality', year: '2025', cover: 'cover-optimized.webp' },
