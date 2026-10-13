@@ -94,20 +94,21 @@ const brands = [
 // get a silhouette shadow instead of a framed one.
 const inspirations = [
 	{ file: 'akira', label: 'Akira', w: 533, h: 800, x: 0, y: 2, size: 19, depth: 0.7 },
-	{ file: 'mario', label: 'Super Mario World', w: 640, h: 432, x: 15, y: 0, size: 11, depth: 1.2, cutout: true },
+	{ file: 'mario', label: 'Super Mario World', w: 640, h: 432, x: 14, y: 0, size: 13, depth: 1.2, cutout: true },
 	{ file: 'blade-runner', label: 'Blade Runner', w: 533, h: 800, x: 22, y: 8, size: 12, depth: 0.9 },
 	{ file: 'bjork', label: 'Björk', w: 640, h: 640, x: 33, y: 0, size: 10, depth: 0.5 },
 	{ file: 'klimt', label: 'Gustav Klimt', w: 533, h: 800, x: 38, y: 14, size: 15, depth: 0.8 },
 	{ file: '2001', label: '2001: A Space Odyssey', w: 533, h: 800, x: 53, y: 0, size: 10, depth: 0.6 },
 	{ file: 'mucha', label: 'Alphonse Mucha', w: 800, h: 793, x: 60, y: 4, size: 20, depth: 1.1, cutout: true },
 	{ file: 'red-dead', label: 'Red Dead Redemption 2', w: 736, h: 414, x: 81, y: 4, size: 16, depth: 0.8 },
-	{ file: 'chihiro', label: 'Spirited Away', w: 561, h: 800, x: 14, y: 56, size: 10, depth: 0.9 },
+	{ file: 'chihiro', label: 'Spirited Away', w: 561, h: 800, x: 17, y: 56, size: 10, depth: 0.9 },
 	{ file: 'kurt', label: 'Kurt Cobain', w: 600, h: 800, x: 24, y: 48, size: 11, depth: 1 },
 	{ file: 'amelie', label: 'Amélie', w: 652, h: 800, x: 33, y: 52, size: 14, depth: 1.1 },
-	{ file: 'ingres', label: 'Ingres', w: 702, h: 800, x: 66, y: 56, size: 14, depth: 1 },
-	{ file: 'gondry', label: 'Michel Gondry', w: 320, h: 450, x: 50, y: 40, size: 10, depth: 1.2 },
-	{ file: 'stephen-king', label: 'The Stand, Stephen King', w: 512, h: 800, x: 54, y: 50, size: 12, depth: 0.9 },
+	{ file: 'ingres', label: 'Ingres', w: 702, h: 800, x: 70, y: 48, size: 14, depth: 1 },
+	{ file: 'gondry', label: 'Michel Gondry', w: 320, h: 450, x: 53, y: 40, size: 10, depth: 1.2 },
+	{ file: 'stephen-king', label: 'The Stand, Stephen King', w: 512, h: 800, x: 57, y: 50, size: 12, depth: 0.9 },
 	{ file: 'beatles', label: 'The Beatles', w: 800, h: 800, x: 80, y: 30, size: 19, depth: 0.7 },
+	{ file: 'lynch', label: 'David Lynch', w: 500, h: 650, x: 45, y: 60, size: 10, depth: 1.3 },
 ];
 ---
 
@@ -408,9 +409,15 @@ const inspirations = [
 
 	/* ---------- INSPIRED BY ---------- */
 	.inspired {
-		padding: 70px 0 16px;
-		border-bottom: 1px solid var(--line);
+		/* Fixed light-grey band in both themes, like the black generalist banner */
+		background: #E9E9E6;
+		color: #15171c;
+		padding: 56px 0 32px;
 		overflow: hidden;
+	}
+	.inspired .eyebrow {
+		color: #15171c;
+		background: transparent;
 	}
 	.inspired-head {
 		display: flex;
@@ -450,14 +457,14 @@ const inspirations = [
 		overflow: hidden;
 		box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.35);
 		opacity: 0;
-		transform: scale(0.94);
+		transform: translateY(12px);
 		transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 60ms),
 			transform 1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 60ms),
 			filter 0.5s ease;
 	}
 	.insp-cloud.is-visible .insp-frame {
 		opacity: 1;
-		transform: scale(1);
+		transform: translateY(0);
 	}
 	.insp-frame img {
 		display: block;
@@ -847,6 +854,7 @@ const inspirations = [
 		let easedY = 0;
 		let inView = false;
 		let rafId = 0;
+		let easedProgress: number | null = null;
 
 		function renderCloud() {
 			rafId = 0;
@@ -854,19 +862,27 @@ const inspirations = [
 				items.forEach((el) => (el.style.transform = ''));
 				return;
 			}
-			easedX += (pointerX - easedX) * 0.08;
-			easedY += (pointerY - easedY) * 0.08;
 			const rect = inspCloud!.getBoundingClientRect();
 			// -1 when the cloud's centre sits at the bottom of the viewport, +1 at the top
 			const progress = (window.innerHeight / 2 - (rect.top + rect.height / 2)) / window.innerHeight;
+			if (easedProgress === null) easedProgress = progress;
+			easedX += (pointerX - easedX) * 0.08;
+			easedY += (pointerY - easedY) * 0.08;
+			easedProgress += (progress - easedProgress) * 0.1;
 			items.forEach((el, i) => {
 				const d = depths[i];
 				const x = easedX * d * -14;
-				const y = progress * d * -50 + easedY * d * -10;
+				// Relative to a mid depth, so front and back items slide against each other
+				const y = easedProgress! * (d - 0.9) * -90 + easedY * d * -10;
 				el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
 			});
-			// Keep easing toward the pointer until it settles
-			if (Math.abs(pointerX - easedX) > 0.001 || Math.abs(pointerY - easedY) > 0.001) requestCloud();
+			// Keep easing toward the pointer and scroll position until they settle
+			if (
+				Math.abs(pointerX - easedX) > 0.001 ||
+				Math.abs(pointerY - easedY) > 0.001 ||
+				Math.abs(progress - easedProgress) > 0.001
+			)
+				requestCloud();
 		}
 		function requestCloud() {
 			if (inView && !rafId) rafId = requestAnimationFrame(renderCloud);
