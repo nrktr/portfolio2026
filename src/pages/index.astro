@@ -306,12 +306,14 @@ const showreelSchema = {
 				referrerpolicy="strict-origin-when-cross-origin"
 				allowfullscreen
 			></iframe>
-			<div class="showreel-sound">
-				<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-					<path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
-					<path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-				</svg>
-				Play with sound, pleaaaaase
+			<div class="showreel-sound-clip">
+				<div class="showreel-sound">
+					<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+						<path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+						<path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					</svg>
+					Play with sound, pleaaaaase
+				</div>
 			</div>
 		</div>
 	</section>
@@ -506,16 +508,22 @@ const showreelSchema = {
 		width: 100%;
 		height: 100%;
 		border: none;
-		/* Stacks above .showreel-sound so the label can tuck in behind it. */
-		z-index: 1;
 	}
-	.showreel-sound {
+	/* Clips the label at the video's top edge, so "sinking behind the video"
+	   never depends on the player being opaque (it's transparent while
+	   loading, which let the label show through it). */
+	.showreel-sound-clip {
 		position: absolute;
 		/* Lines up with the right edge of the top nav (.wrap content box). */
 		right: max(32px, calc((100% - 1180px) / 2 + 32px));
 		bottom: 100%;
-		z-index: 0;
-		display: inline-flex;
+		overflow: hidden;
+		pointer-events: none;
+	}
+	/* Slides up out of the video on load (transform, keyframed), then sinks
+	   back into it as the page scrolls down (translate, scroll-linked). */
+	.showreel-sound {
+		display: flex;
 		align-items: center;
 		gap: 8px;
 		padding: 10px 16px;
@@ -524,14 +532,12 @@ const showreelSchema = {
 		font-family: var(--font-body);
 		font-size: 13px;
 		font-weight: 600;
-		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+		animation: showreel-sound-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.6s backwards;
 	}
-	/* Tucked behind the top edge of the video until the player is ready, then
-	   slides out (transform, transitioned). Scrolling down sinks it back behind
-	   the video at a slower rate than the page (translate, scroll-linked, so
-	   deliberately not transitioned). */
-	.showreel-sound.is-tucked {
-		transform: translateY(100%);
+	@keyframes showreel-sound-in {
+		from {
+			transform: translateY(100%);
+		}
 	}
 	@media (max-width: 760px) {
 		.showreel-sound {
@@ -828,32 +834,12 @@ const showreelSchema = {
 	// "Play with sound" label above the muted autoplay showreel: a nudge
 	// toward the player's own controls (a click on our page isn't a user
 	// gesture inside the cross-origin iframe, so Firefox refuses to unmute
-	// from here). Slides out once the player is ready, then sinks behind the
-	// video as the page scrolls down, parallax-style.
+	// from here). Sinks behind the video as the page scrolls down, at half the
+	// scroll speed, parallax-style — fully hidden after scrolling twice its
+	// own height.
 	{
-		const iframe = document.querySelector<HTMLIFrameElement>('.showreel-iframe');
 		const label = document.querySelector<HTMLElement>('.showreel-sound');
-		if (iframe && label) {
-			label.classList.add('is-tucked');
-			const onMessage = (e: MessageEvent) => {
-				if (e.source !== iframe.contentWindow) return;
-				let data: unknown = e.data;
-				if (typeof data === 'string') {
-					try {
-						data = JSON.parse(data);
-					} catch {
-						return;
-					}
-				}
-				const message = data as { context?: string; event?: string };
-				if (message?.context !== 'player.js' || message.event !== 'ready') return;
-				label.classList.remove('is-tucked');
-				window.removeEventListener('message', onMessage);
-			};
-			window.addEventListener('message', onMessage);
-
-			// Sinks at half the scroll speed relative to the video, so it's fully
-			// hidden after scrolling twice its own height.
+		if (label) {
 			let frame = 0;
 			const sink = () => {
 				frame = 0;
