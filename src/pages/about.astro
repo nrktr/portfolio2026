@@ -87,6 +87,28 @@ const brands = [
 	{ name: 'Various bands', category: 'culture' },
 	{ name: 'And more…', category: '' },
 ];
+
+// Inspiration cloud: position (left/top, % of the cloud), width (% of the
+// cloud width), intrinsic size of the optimized file, and parallax depth
+// (deeper items also stack on top). `cutout` marks transparent PNGs, which
+// get a silhouette shadow instead of a framed one.
+const inspirations = [
+	{ file: 'akira', label: 'Akira', w: 533, h: 800, x: 0, y: 2, size: 19, depth: 0.7 },
+	{ file: 'mario', label: 'Super Mario World', w: 640, h: 432, x: 15, y: 0, size: 11, depth: 1.2, cutout: true },
+	{ file: 'blade-runner', label: 'Blade Runner', w: 533, h: 800, x: 22, y: 8, size: 12, depth: 0.9 },
+	{ file: 'bjork', label: 'Björk', w: 640, h: 640, x: 33, y: 0, size: 10, depth: 0.5 },
+	{ file: 'klimt', label: 'Gustav Klimt', w: 533, h: 800, x: 38, y: 14, size: 15, depth: 0.8 },
+	{ file: '2001', label: '2001: A Space Odyssey', w: 533, h: 800, x: 53, y: 0, size: 10, depth: 0.6 },
+	{ file: 'mucha', label: 'Alphonse Mucha', w: 800, h: 793, x: 60, y: 4, size: 20, depth: 1.1, cutout: true },
+	{ file: 'red-dead', label: 'Red Dead Redemption 2', w: 736, h: 414, x: 81, y: 4, size: 16, depth: 0.8 },
+	{ file: 'chihiro', label: 'Spirited Away', w: 561, h: 800, x: 14, y: 56, size: 10, depth: 0.9 },
+	{ file: 'kurt', label: 'Kurt Cobain', w: 600, h: 800, x: 24, y: 48, size: 11, depth: 1 },
+	{ file: 'amelie', label: 'Amélie', w: 652, h: 800, x: 33, y: 52, size: 14, depth: 1.1 },
+	{ file: 'ingres', label: 'Ingres', w: 702, h: 800, x: 66, y: 56, size: 14, depth: 1 },
+	{ file: 'gondry', label: 'Michel Gondry', w: 320, h: 450, x: 50, y: 40, size: 10, depth: 1.2 },
+	{ file: 'stephen-king', label: 'The Stand, Stephen King', w: 512, h: 800, x: 54, y: 50, size: 12, depth: 0.9 },
+	{ file: 'beatles', label: 'The Beatles', w: 800, h: 800, x: 80, y: 30, size: 19, depth: 0.7 },
+];
 ---
 
 <BaseLayout title="About — Nicolas Rakotoary">
@@ -133,6 +155,36 @@ const brands = [
 					/>
 				</picture>
 			</div>
+		</div>
+	</section>
+
+	<section class="inspired" aria-labelledby="inspired-title">
+		<div class="wrap inspired-head reveal">
+			<span class="eyebrow" id="inspired-title">Inspired by</span>
+		</div>
+		<div class="insp-cloud">
+			{
+				inspirations.map((item, i) => (
+					<div
+						class:list={['insp-item', { 'is-cutout': item.cutout }]}
+						data-depth={item.depth}
+						style={`--x:${item.x}%;--y:${item.y}%;--size:${item.size}%;--i:${i};z-index:${Math.round(item.depth * 10)}`}
+					>
+						<div class="insp-float">
+							<div class="insp-frame">
+								<img
+									src={`/images/inspiration/${item.file}-optimized.webp`}
+									width={item.w}
+									height={item.h}
+									alt={item.label}
+									loading="lazy"
+									decoding="async"
+								/>
+							</div>
+						</div>
+					</div>
+				))
+			}
 		</div>
 	</section>
 
@@ -352,6 +404,108 @@ const brands = [
 		color: var(--ink-soft);
 		letter-spacing: 0.02em;
 		text-align: right;
+	}
+
+	/* ---------- INSPIRED BY ---------- */
+	.inspired {
+		padding: 70px 0 16px;
+		border-bottom: 1px solid var(--line);
+		overflow: hidden;
+	}
+	.inspired-head {
+		display: flex;
+		align-items: baseline;
+		gap: 14px;
+		flex-wrap: wrap;
+	}
+	.insp-cloud {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 2.5;
+		margin-top: 12px;
+	}
+	.insp-item {
+		position: absolute;
+		left: var(--x);
+		top: var(--y);
+		width: var(--size);
+		will-change: transform;
+	}
+	.insp-item:hover {
+		/* above the inline depth-based stacking */
+		z-index: 30 !important;
+	}
+	.insp-float {
+		animation: insp-drift calc(9s + var(--i) * 0.7s) ease-in-out calc(var(--i) * -1.3s) infinite alternate;
+	}
+	@keyframes insp-drift {
+		from {
+			transform: translate3d(0, -6px, 0) rotate(-0.6deg);
+		}
+		to {
+			transform: translate3d(0, 8px, 0) rotate(0.6deg);
+		}
+	}
+	.insp-frame {
+		overflow: hidden;
+		box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.35);
+		opacity: 0;
+		transform: scale(0.94);
+		transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 60ms),
+			transform 1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i) * 60ms),
+			filter 0.5s ease;
+	}
+	.insp-cloud.is-visible .insp-frame {
+		opacity: 1;
+		transform: scale(1);
+	}
+	.insp-frame img {
+		display: block;
+		width: 100%;
+		height: auto;
+		transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.insp-item:hover .insp-frame img {
+		transform: scale(1.07);
+	}
+	.insp-cloud:has(.insp-item:hover) .insp-item:not(:hover) .insp-frame {
+		filter: grayscale(0.6) opacity(0.55);
+	}
+	/* Transparent PNGs: no frame, a shadow that follows the silhouette */
+	.insp-item.is-cutout .insp-frame {
+		overflow: visible;
+		box-shadow: none;
+	}
+	.insp-item.is-cutout img {
+		filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.22));
+	}
+
+	@media (max-width: 900px) {
+		.insp-cloud {
+			aspect-ratio: auto;
+			margin-top: 0;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: flex-start;
+			padding: 24px 16px 40px;
+		}
+		.insp-item {
+			position: relative;
+			left: auto;
+			top: auto;
+			width: 46%;
+			margin: 0 -2% -14%;
+		}
+		.insp-item:nth-child(even) {
+			margin-top: 18%;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.insp-float {
+			animation: none;
+		}
 	}
 
 	/* ---------- SKILLS ---------- */
@@ -679,6 +833,69 @@ const brands = [
 			{ passive: true }
 		);
 		updateParallax();
+	}
+
+	const inspCloud = document.querySelector<HTMLElement>('.insp-cloud');
+	if (inspCloud) {
+		const items = Array.from(inspCloud.querySelectorAll<HTMLElement>('.insp-item'));
+		const depths = items.map((el) => parseFloat(el.dataset.depth ?? '1'));
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const desktop = window.matchMedia('(min-width: 901px)');
+		let pointerX = 0;
+		let pointerY = 0;
+		let easedX = 0;
+		let easedY = 0;
+		let inView = false;
+		let rafId = 0;
+
+		function renderCloud() {
+			rafId = 0;
+			if (!desktop.matches || reduceMotion.matches) {
+				items.forEach((el) => (el.style.transform = ''));
+				return;
+			}
+			easedX += (pointerX - easedX) * 0.08;
+			easedY += (pointerY - easedY) * 0.08;
+			const rect = inspCloud!.getBoundingClientRect();
+			// -1 when the cloud's centre sits at the bottom of the viewport, +1 at the top
+			const progress = (window.innerHeight / 2 - (rect.top + rect.height / 2)) / window.innerHeight;
+			items.forEach((el, i) => {
+				const d = depths[i];
+				const x = easedX * d * -14;
+				const y = progress * d * -50 + easedY * d * -10;
+				el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+			});
+			// Keep easing toward the pointer until it settles
+			if (Math.abs(pointerX - easedX) > 0.001 || Math.abs(pointerY - easedY) > 0.001) requestCloud();
+		}
+		function requestCloud() {
+			if (inView && !rafId) rafId = requestAnimationFrame(renderCloud);
+		}
+
+		new IntersectionObserver(
+			(entries) => {
+				inView = entries[0].isIntersecting;
+				if (inView) {
+					inspCloud.classList.add('is-visible');
+					requestCloud();
+				}
+			},
+			{ rootMargin: '0px 0px -10% 0px' }
+		).observe(inspCloud);
+
+		window.addEventListener('scroll', requestCloud, { passive: true });
+		window.addEventListener('resize', requestCloud);
+		inspCloud.addEventListener('pointermove', (e) => {
+			const rect = inspCloud.getBoundingClientRect();
+			pointerX = (e.clientX - rect.left) / rect.width - 0.5;
+			pointerY = (e.clientY - rect.top) / rect.height - 0.5;
+			requestCloud();
+		});
+		inspCloud.addEventListener('pointerleave', () => {
+			pointerX = 0;
+			pointerY = 0;
+			requestCloud();
+		});
 	}
 
 	const faqBlock = document.querySelector<HTMLElement>('.faq-block');
