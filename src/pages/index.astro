@@ -526,9 +526,10 @@ const showreelSchema = {
 		font-weight: 600;
 		transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 	}
-	/* Tucked behind the top edge of the video until the player is ready and
-	   muted at the top of the page; slides back under it on scroll or once
-	   the sound is on. */
+	/* Tucked behind the top edge of the video until the player is ready, then
+	   slides out (transform, transitioned). Scrolling down sinks it back behind
+	   the video at a slower rate than the page (translate, scroll-linked, so
+	   deliberately not transitioned). */
 	.showreel-sound.is-tucked {
 		transform: translateY(100%);
 	}
@@ -824,27 +825,17 @@ const showreelSchema = {
 </style>
 
 <script>
-	// "Play with sound" label above the muted autoplay showreel. Unmuting has
-	// to happen through the player's own controls (a click on our page isn't a
-	// user gesture inside the cross-origin iframe, so Firefox refuses sound),
-	// so this is just a nudge, shown only while the page sits at the top and
-	// the player reports its sound off. Player.js has no volume event, hence
-	// the polling. Never touches the iframe src (breaks Mux in Firefox).
+	// "Play with sound" label above the muted autoplay showreel: a nudge
+	// toward the player's own controls (a click on our page isn't a user
+	// gesture inside the cross-origin iframe, so Firefox refuses to unmute
+	// from here). Slides out once the player is ready, then sinks behind the
+	// video as the page scrolls down, parallax-style.
 	{
 		const iframe = document.querySelector<HTMLIFrameElement>('.showreel-iframe');
 		const label = document.querySelector<HTMLElement>('.showreel-sound');
 		if (iframe && label) {
-			let ready = false;
-			let muted = true;
-			let volume = 0;
-			const sync = () => label.classList.toggle('is-tucked', !ready || window.scrollY > 10 || (!muted && volume > 0));
 			label.classList.add('is-tucked');
-			const ask = (method: string) =>
-				iframe.contentWindow?.postMessage(
-					JSON.stringify({ context: 'player.js', version: '1.0', method, listener: method }),
-					'https://framerate.tv'
-				);
-			window.addEventListener('message', (e) => {
+			const onMessage = (e: MessageEvent) => {
 				if (e.source !== iframe.contentWindow) return;
 				let data: unknown = e.data;
 				if (typeof data === 'string') {
@@ -854,25 +845,29 @@ const showreelSchema = {
 						return;
 					}
 				}
-				const message = data as { context?: string; event?: string; value?: unknown };
-				if (message?.context !== 'player.js') return;
-				if (message.event === 'ready' && !ready) {
-					ready = true;
-					setInterval(() => {
-						if (document.visibilityState !== 'visible') return;
-						ask('getMuted');
-						ask('getVolume');
-					}, 1000);
-				} else if (message.event === 'getMuted') {
-					muted = message.value === true;
-				} else if (message.event === 'getVolume') {
-					volume = Number(message.value) || 0;
-				} else {
-					return;
-				}
-				sync();
-			});
-			window.addEventListener('scroll', sync, { passive: true });
+				const message = data as { context?: string; event?: string };
+				if (message?.context !== 'player.js' || message.event !== 'ready') return;
+				label.classList.remove('is-tucked');
+				window.removeEventListener('message', onMessage);
+			};
+			window.addEventListener('message', onMessage);
+
+			// Sinks at half the scroll speed relative to the video, so it's fully
+			// hidden after scrolling twice its own height.
+			let frame = 0;
+			const sink = () => {
+				frame = 0;
+				const offset = Math.min(window.scrollY * 0.5, label.offsetHeight);
+				label.style.translate = `0 ${offset}px`;
+			};
+			sink();
+			window.addEventListener(
+				'scroll',
+				() => {
+					if (!frame) frame = requestAnimationFrame(sink);
+				},
+				{ passive: true }
+			);
 		}
 	}
 
