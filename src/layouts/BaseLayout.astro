@@ -79,6 +79,7 @@ const personSchema = {
 		<meta name="twitter:image" content={ogImageUrl} />
 
 		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<slot name="head" />
 		<script is:inline>
 			// Runs before first paint so a returning dark-mode visitor never sees a
 			// flash of the light theme. Light stays the default: only an explicit
