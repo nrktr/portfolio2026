@@ -709,7 +709,9 @@ const showreelSchema = {
 	}
 	.card-media .fill {
 		position: absolute;
-		inset: 0;
+		/* Bleed 1px past the clip so sub-pixel card heights never expose
+		   --card-bg as a hairline while the hover scale animates back */
+		inset: -1px;
 		background-size: 200% 200%;
 		background-position: 0% 50%;
 		transition: background-position 1.4s ease, transform 0.5s ease;
