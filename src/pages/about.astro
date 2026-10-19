@@ -25,6 +25,28 @@ const meansTags = [
 	'…',
 ];
 
+const downloads = [
+	{
+		label: 'Showreel',
+		desc: 'Compilation of recent clips',
+		meta: 'Video',
+		href: 'https://framerate.tv/watch/40a5e30a-4e43-4323-96ae-5ffaf38dcf49',
+		external: true,
+	},
+	{
+		label: 'Resume',
+		desc: 'Career path and past clients',
+		meta: 'PDF',
+		href: '/CV%20NICOLAS%20RAKOTOARY%202026%20-%20EN.pdf',
+	},
+	{
+		label: 'Deck',
+		desc: 'Process and onboarding',
+		meta: 'PDF',
+		href: '/Nicolas%20Rakotoary%20-%20Deck%202026.pdf',
+	},
+];
+
 const agencies = [
 	'Carré Noir',
 	'TBWA\\Else',
@@ -137,14 +159,28 @@ const inspirations = [
 					<p class="local-time reveal">
 						It's <strong id="local-time">--:--</strong> where I am right now <span class="dot"></span>
 					</p>
-					<p class="reveal">
-						If you need to download my showreel, please proceed to{' '}
-						<a href="https://framerate.tv/watch/40a5e30a-4e43-4323-96ae-5ffaf38dcf49">this link</a>.
-						And if you need my resume, you can download it{' '}
-						<a href="/CV%20NICOLAS%20RAKOTOARY%202026%20-%20EN.pdf" download>here</a>.
-					</p>
 				</div>
-				<p class="portrait-credit reveal">Portrait by Enzo Lucia</p>
+				<div class="downloads reveal">
+					<span class="eyebrow">Downloads</span>
+					<ul class="downloads-table">
+						{
+							downloads.map((d) => (
+								<li>
+									<a
+										class="download-row"
+										href={d.href}
+										{...(d.external ? { target: '_blank', rel: 'noopener' } : { download: '' })}
+									>
+										<span class="download-label">{d.label}</span>
+										<span class="download-desc">{d.desc}</span>
+										<span class="download-meta">{d.meta}</span>
+										<span class="download-icon" aria-hidden="true">{d.external ? '↗' : '↓'}</span>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
 			</div>
 			<div class="about-hero-portrait">
 				<picture>
@@ -155,6 +191,7 @@ const inspirations = [
 						alt="Portrait of Nicolas Rakotoary"
 					/>
 				</picture>
+				<p class="portrait-credit">Portrait by Enzo Lucia</p>
 			</div>
 		</div>
 	</section>
@@ -224,6 +261,7 @@ const inspirations = [
 		</div>
 
 		<section class="faq reveal">
+			<span class="eyebrow faq-title">Frequently asked questions</span>
 			<div class="faq-block">
 				<div class="faq-questions">
 					{
@@ -307,13 +345,13 @@ const inspirations = [
 		position: relative;
 		z-index: 5;
 		justify-self: end;
+		will-change: transform;
 	}
 	.about-hero-portrait img {
 		display: block;
 		width: 100%;
 		max-width: 424px;
 		height: auto;
-		will-change: transform;
 	}
 	.eyebrow {
 		display: inline-block;
@@ -399,8 +437,77 @@ const inspirations = [
 			opacity: 0.35;
 		}
 	}
+	/* ---------- DOWNLOADS ---------- */
+	.downloads {
+		margin-top: 40px;
+		max-width: 640px;
+	}
+	.downloads-table {
+		list-style: none;
+		border-top: 1px solid var(--line);
+	}
+	.download-row {
+		display: grid;
+		grid-template-columns: 110px minmax(0, 1fr) auto 20px;
+		align-items: baseline;
+		gap: 16px;
+		padding: 16px 12px;
+		border-bottom: 1px solid var(--line);
+		color: var(--ink);
+		text-decoration: none;
+		transition: background 0.2s ease, color 0.2s ease;
+	}
+	.download-label {
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+	.download-desc {
+		font-size: 15px;
+		color: var(--ink-soft);
+	}
+	.download-meta {
+		font-family: var(--font-heading);
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--ink-soft);
+		white-space: nowrap;
+	}
+	.download-icon {
+		font-size: 18px;
+		text-align: right;
+		transition: transform 0.25s ease;
+	}
+	.download-row:hover {
+		background: var(--accent);
+		color: var(--ink-on-accent);
+	}
+	.download-row:hover .download-desc,
+	.download-row:hover .download-meta {
+		color: var(--ink-on-accent);
+	}
+	.download-row:hover .download-icon {
+		transform: translateY(2px);
+	}
+	.download-row[target]:hover .download-icon {
+		transform: translate(2px, -2px);
+	}
+	@media (max-width: 600px) {
+		.download-row {
+			grid-template-columns: minmax(0, 1fr) auto 20px;
+			row-gap: 4px;
+		}
+		.download-desc {
+			grid-column: 1 / -1;
+			grid-row: 2;
+		}
+	}
+
 	.portrait-credit {
-		margin-top: 24px;
+		margin-top: 10px;
 		font-size: 13px;
 		color: var(--ink-soft);
 		letter-spacing: 0.02em;
@@ -642,6 +749,13 @@ const inspirations = [
 		padding: 60px 0;
 		border-bottom: 1px solid var(--line);
 	}
+	/* Tab sitting right on top of the FAQ card, text aligned with the questions */
+	.faq-title {
+		display: block;
+		width: fit-content;
+		margin-bottom: 0;
+		padding: 10px 20px 8px 28px;
+	}
 	.faq-block {
 		width: 100%;
 		background: var(--card-bg);
@@ -654,7 +768,6 @@ const inspirations = [
 		flex-direction: column;
 		flex: 1 1 100%;
 		min-width: 0;
-		padding: 8px 0;
 		transition: flex-basis 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 	.faq-block.is-open .faq-questions {
@@ -676,6 +789,9 @@ const inspirations = [
 	}
 	.faq-questions .faq-question:first-child {
 		border-top: 1px solid var(--line);
+	}
+	.faq-questions .faq-question:last-child {
+		border-bottom: none;
 	}
 	.faq-question-num {
 		flex: none;
@@ -818,7 +934,8 @@ const inspirations = [
 
 	initLocalTime('local-time');
 
-	const portrait = document.getElementById('about-portrait');
+	// The whole portrait column moves, so the credit stays under the photo
+	const portrait = document.querySelector<HTMLElement>('.about-hero-portrait');
 	if (portrait) {
 		let ticking = false;
 		function updateParallax() {
